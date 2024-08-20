@@ -1,0 +1,21 @@
+
+*.orig
+# Java Class Files #
+*.class
+#Persistence
+persistence.xml
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+# Eclipse #
+/.project
+/.settings
+bin/**
+# Maven #
+target/
+/.mvn
+/.maven
+/.repository
+.flattened-pom.xml
