@@ -46,4 +46,8 @@ public class DAOGeneric<T> {
 	public EntityManager getEntityManager() {
 		return em;
 	}
+
+	public void closeEntityManager() {
+		em.close();
+	}
 }

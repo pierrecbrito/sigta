@@ -13,6 +13,10 @@ public class MeuCadastro {
 		
 		DAOGeneric<Usuario> daoGeneric = new DAOGeneric<Usuario>();
 		daoGeneric.salvar(usuario);
+		
+		System.out.println("Usuario salvo com sucesso!");
+		
+		System.exit(0);
 	}
 
 }
