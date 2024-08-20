@@ -6,15 +6,10 @@ import br.com.pierre.sigta.model.Usuario;
 public class MeuCadastro {
 
 	public static void main(String[] args) {
-		Usuario usuario = new Usuario();
-		usuario.setNome("Pierre Brito");
-		usuario.setEmail("pierre@gmail.com");
-		usuario.setSenha("123456789");
-		
+
 		DAOGeneric<Usuario> daoGeneric = new DAOGeneric<Usuario>();
-		daoGeneric.salvar(usuario);
 		
-		System.out.println("Usuario salvo com sucesso!");
+		System.out.println(daoGeneric.buscarPorId(Usuario.class, 3L));
 		
 		System.exit(0);
 	}

@@ -1,12 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 	<h:head>
 		<title>SIGTA</title>
 		
 		 <h:outputStylesheet library="css" name="base.css"  /> 
+		 <h:outputStylesheet library="css" name="system.css"  /> 
+		 <h:outputStylesheet library="css" name="dashboard.css"  /> 
 	</h:head>
 	<h:body>
-		<h2>Futuro dashboard</h2>
+		<main id="container">
+			<div id="content">
+				<section class="card">
+					<div class="container-direita">
+						<a class="btn" href="#ex1" rel="modal:open">Adicionar tarefa</a>
+					</div>
+				</section>
+			</div>
+		</main>
+		<div id="ex1" class="modal">
+		 	<h:form id="formTarefa">
+				<h2>Cadastrar tarefa</h2>
+				<p class="texto-mutado">Tarefa são uma ótima maneira de acompanhar seu desenvolvimento</p>
+				<h:messages id="mensagens"/> 
+				<h:inputText value="#{tarefasManagedBean.tarefa.titulo}" a:placeholder="Título" required="true" requiredMessage="É necessário digitar o nome."/>
+				<h:inputTextarea value="#{tarefasManagedBean.tarefa.descricao}" a:placeholder="Descrição" required="true" requiredMessage="É necessário digitar a descrição" rows="4"/>
+				
+				<h:commandButton value="Cadastrar" action="#{signupManaged.cadastrar}"/>
+			</h:form>
+		  <a href="#" rel="modal:close">Close</a>
+		</div>
 	</h:body>
+	<!-- Remember to include jQuery :) -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+	<!-- jQuery Modal -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 </html>

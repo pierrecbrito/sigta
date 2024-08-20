@@ -7,6 +7,10 @@
   font-family: "Inter", sans-serif;
 }
 
+a {
+	text-decoration: none;
+}
+
 h2, p {
 	margin-top: 0.7em;
 	margin-bottom: 0;
@@ -23,9 +27,9 @@ img {
 	border-radius: 10px;
 }
 
-input {
+input, textarea {
 	padding: 9px 12px;
-    border: 2px solid #F1F1F1 !important; /*#F0F0F0*/
+    border: 2px solid #F1F1F1 !important; 
     outline: none !important;
     width: 100%;
     margin-top: 0.6em;
@@ -46,4 +50,16 @@ ul {
 	list-style-type: none;
 	padding: 0;
 	
+}
+
+input[type="submit"], .btn {
+	background-color: #015FFA;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-weight: 700;
+	font-size: 0.9em;
+	border: 2px solid #015FFA !important;
+	padding: 9px 12px;
 }
