@@ -2,8 +2,17 @@ package br.com.pierre.sigta.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Tarefa {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(nullable = false)
 	private String titulo;
 	private String descricao;
 	private Usuario responsavel;

@@ -13,7 +13,7 @@ import br.com.pierre.sigta.util.LoginUtil;
 @ManagedBean( name = "signupManaged")
 @ViewScoped
 public class SignUpManagedBean {
-	private Usuario usuario;
+	private Usuario usuario = new Usuario();
 	DAOGeneric<Usuario> dao = new DAOGeneric<>();
 	
 	
@@ -30,8 +30,6 @@ public class SignUpManagedBean {
 		
         return "";
 	}
-
-
 
 	public Usuario getUsuario() {
 		return usuario;

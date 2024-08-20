@@ -55,6 +55,16 @@ body {
 	color: #FFFFFF;
 }
 
+#mensagem-subtexto {
+	position: absolute;
+	top: 170px;
+	left: 100px;
+	z-index: 5;
+	font-size: 1em;
+	color: #FFFFFF;
+	max-width: 400px;
+}
+
 input[type="text"] {
 	margin-top: 1.2em;
 }
@@ -73,6 +83,7 @@ input[type="submit"] {
 	font-weight: 700;
 	font-size: 0.9em;
 	 border: 2px solid #015FFA !important;
+	 width: 100%;
 }
 
 #linha-container {
@@ -97,5 +108,21 @@ input[type="submit"] {
     padding: 0.75rem 1.25rem;
     border: 1px solid transparent;
     border-radius: 5px;
+}
+
+#formRedirect {
+	width: 100%;
+}
+
+a[id="formRedirect:copyright"], #copyright{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	padding: 1em;
+	font-size: 0.75em;
+	color: #666;
+	width: 100%;
+	text-align: center;
+	
 }
 

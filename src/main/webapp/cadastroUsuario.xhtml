@@ -19,10 +19,12 @@
 				<h:inputSecret value="#{signupManaged.usuario.senha}" a:placeholder="Senha" required="true" requiredMessage="É necessário digitar a senha."/>
 				<h:commandButton value="Cadastrar" action="#{signupManaged.cadastrar}"/>
 			</h:form>
+			<h:outputLink id="copyright" value="https://pierrebrito.dev.br/" target="_blank">&copy; Pierre Brito 2024</h:outputLink>
 		</div>
 		<div id="painel-direita">
 			<h:graphicImage name="img/background-login.jpg" />
 			<h3 id="mensagem-titulo">Sua produtividade começa aqui.</h3>
+			<p id="mensagem-subtexto">Transforme sua produtividade com nosso Todo List - simples, intuitivo e eficaz!</p>
 		</div>
 	</h:body>
 </html>

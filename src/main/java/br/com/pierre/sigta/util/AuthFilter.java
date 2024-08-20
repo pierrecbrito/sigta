@@ -26,7 +26,8 @@ public class AuthFilter implements Filter {
 		if (reqURI.indexOf("/index.jsf") >= 0
 				|| (ses != null && ses.getAttribute("usuario") != null)
 				|| reqURI.indexOf("/public/") >= 0
-				|| reqURI.contains("javax.faces.resource"))
+				|| reqURI.contains("javax.faces.resource")
+				|| reqURI.indexOf("cadastroUsuario") >= 0)
 			chain.doFilter(request, response);
 		else {
 			resp.sendRedirect(reqt.getContextPath() + "/index.jsf");
