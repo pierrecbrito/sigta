@@ -6,3 +6,16 @@
 	flex-direction: row;
 	justify-content: end;
 }
+
+#tabelaTarefas {
+	width: 100%;
+	position: relative;
+	background-color: #F0F0F0;
+	padding: 1em;
+	border-radius: 5px;
+	margin-top: 1em;
+}
+
+#tabelaTarefas td {
+	text-align: center;
+}

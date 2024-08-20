@@ -27,7 +27,7 @@ img {
 	border-radius: 10px;
 }
 
-input, textarea {
+input, textarea, select {
 	padding: 9px 12px;
     border: 2px solid #F1F1F1 !important; 
     outline: none !important;

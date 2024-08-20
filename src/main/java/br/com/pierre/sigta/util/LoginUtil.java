@@ -46,6 +46,13 @@ public class LoginUtil {
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
 		return usuario.getNome();
 	}
+	
+	public static Usuario getUsuario() {
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+				.getExternalContext().getSession(false);
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		return usuario;
+	}
 
 	public static Long getUserId() {
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
