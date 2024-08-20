@@ -28,8 +28,10 @@ public class AuthFilter implements Filter {
 				|| reqURI.indexOf("/public/") >= 0
 				|| reqURI.contains("javax.faces.resource"))
 			chain.doFilter(request, response);
-		else
+		else {
 			resp.sendRedirect(reqt.getContextPath() + "/index.jsf");
+		}
+			
     }
 
     @Override
