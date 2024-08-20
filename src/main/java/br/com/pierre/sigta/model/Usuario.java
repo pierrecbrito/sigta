@@ -52,7 +52,6 @@ public class Usuario {
 		this.senha = hashSenha(senha);
 	}
 	
-	// Método para hash da senha
     private String hashSenha(String senha) {
         return BCrypt.hashpw(senha, BCrypt.gensalt());
     }
