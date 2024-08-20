@@ -10,15 +10,20 @@
 	<h:body>
 		<div id="painel-esquerda">
 			<h2 id="logo">SIGTA</h2>
-			<h2>Login</h2>
-			<p class="texto-mutado">Entre com sua conta e comece a aumentar sua produtividade</p>
-			<h:inputText value="#{loginManaged.email}" a:placeholder="E-mail"/>
-			<h:inputSecret value="#{loginManaged.senha}" a:placeholder="Senha"/>
-			<h:commandButton value="Entrar"/>
-			<p id="linha-container"><span id="linha-conteudo">ou</span></p>
-			<h:commandButton value="Se inscreva"/>
+			<h:form id="formLogin">
+				<h2>Login</h2>
+				<p class="texto-mutado">Entre com sua conta e comece a aumentar sua produtividade</p>
+				<h:messages id="mensagens"/> 
+				<h:inputText value="#{loginManaged.email}" a:placeholder="E-mail" required="true" requiredMessage="É necessário digitar o e-mail."/>
+				<h:inputSecret value="#{loginManaged.senha}" a:placeholder="Senha" required="true" requiredMessage="É necessário digitar a senha."/>
+				<h:commandButton value="Entrar" action="#{loginManaged.logar}"/>
+				<p id="linha-container"><span id="linha-conteudo">ou</span></p>
+				<h:commandButton value="Se inscreva"/>
+			</h:form>
 		</div>
 		<div id="painel-direita">
+			<h:graphicImage name="img/background-login.jpg" />
+			<h3 id="mensagem-titulo">Sua produtividade começa aqui.</h3>
 		</div>
 	</h:body>
 </html>
