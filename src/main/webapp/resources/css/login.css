@@ -1,0 +1,76 @@
+@charset "UTF-8";
+
+body {
+	padding: 1em;
+	display: flex;
+	flex-direction: row;
+	justify-content: start;
+	height: 100vh;
+}
+
+#painel-esquerda {
+	position: relative;
+	max-width: 500px;
+	width: 100%;
+	height: 100%;	
+	padding: 2em;
+	display: flex;
+	justify-content: center;
+	align-items: start;
+	flex-direction: column;
+}
+
+#painel-direita {
+	position: relative;
+	max-width: calc(100% - 500px);
+	width: 100%;
+	height: 100%;	
+	padding: 2em;
+	display: flex;
+	justify-content: center;
+	align-items: start;
+	flex-direction: column;
+}
+
+#logo {
+	position: absolute;
+	left: 0;
+	top: 1em;
+	left: 1.5em;
+	font-weight: bold;
+}
+
+
+input[type="text"] {
+	margin-top: 2em;
+}
+
+input[type="password"] {
+	margin-bottom: 1.2em;
+}
+
+
+input[type="submit"] {
+	background-color: #015FFA;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-weight: 700;
+	font-size: 0.9em;
+	 border: 2px solid #015FFA !important;
+}
+
+#linha-container {
+   width: 100%; 
+   text-align: center; 
+   border-bottom: 1px solid #000; 
+   line-height: 0.1em;
+   margin-top: 1.5em;
+    margin-bottom: 0.8em;
+} 
+
+#linha-container #linha-conteudo { 
+    background:#fff; 
+    padding:0 10px; 
+}
