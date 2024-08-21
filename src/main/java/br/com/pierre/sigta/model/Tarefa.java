@@ -11,8 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQueries({@NamedQuery(name = "Tarefas.de", query = "select t from Tarefa t where t.responsavel = :responsavel")})
 public class Tarefa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

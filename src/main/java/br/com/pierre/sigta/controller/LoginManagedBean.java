@@ -13,8 +13,8 @@ import br.com.pierre.sigta.util.LoginUtil;
 @ManagedBean( name = "loginManaged")
 @ViewScoped
 public class LoginManagedBean {
-	private String email;
-	private String senha;
+	private String email = "";
+	private String senha = "";
 	
 	
 	public String logar() {

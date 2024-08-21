@@ -8,17 +8,17 @@
 		 <h:outputStylesheet library="css" name="system.css"  /> 
 		 <h:outputStylesheet library="css" name="dashboard.css"  /> 
 		 
-
 	</h:head>
 	<h:body>
+		
 		<main id="container">
 			<div id="content">
 				<section class="card">
 					<div class="container-direita">
-						<a class="btn" href="#ex1" rel="modal:open">Adicionar tarefa</a>
+						<a id="btn-addtarefa" class="btn" href="#ex1" rel="modal:open">Adicionar tarefa</a>
 					</div>
 					
-					<h:dataTable value="#{tarefasManagedBean.tarefas}" var="tarefaLinha" id="tabelaTarefas">
+					<h:dataTable value="#{tarefasManagedBean.tarefas}" var="tarefaLinha" id="tabelaTarefas">			
 						<h:column>
 							<f:facet name="header">Título</f:facet>
 							<h:outputText value="#{tarefaLinha.titulo}" />
@@ -36,6 +36,14 @@
 							<f:facet name="header">Prioridade</f:facet>
 							<h:outputText value="#{tarefaLinha.prioridade}" />
 						</h:column>
+						
+						<h:column>
+							<f:facet name="header">-</f:facet>
+							<h:commandButton onclick="abrirModalDeEdicao()" id="btn-selecTarefa" value="↗" action="#{tarefasManagedBean.selecionarTarefa(tarefaLinha)}">
+            					<f:ajax render="formTarefaAtualizar" />
+							</h:commandButton>
+						</h:column>
+						
 					</h:dataTable>
 				</section>
 			</div>
@@ -47,13 +55,29 @@
 				<h:messages id="mensagens"/> 
 				<h:inputText value="#{tarefasManagedBean.tarefa.titulo}" a:placeholder="Título" required="true" requiredMessage="É necessário digitar o nome."/>
 				<h:inputTextarea value="#{tarefasManagedBean.tarefa.descricao}" a:placeholder="Descrição" required="true" requiredMessage="É necessário digitar a descrição" rows="4"/>
-				<h:inputText id="dataHora" value="#{tarefasManagedBean.tarefa.dataHora}" converter="localDateTimeConverter"  a:placeholder="Até dd/MM/yyyy HH:mm"/>
+				<h:inputText a:type="datetime-local" id="dataHora" value="#{tarefasManagedBean.tarefa.dataHora}" converter="localDateTimeConverter"  a:placeholder="Até dd/MM/yyyy HH:mm"/>
 				<h:selectOneMenu value="#{tarefasManagedBean.tarefa.prioridade}" >
 				    <f:selectItems value="#{tarefasManagedBean.niveisPrioridade}" />
 				</h:selectOneMenu>
 				<h:commandButton value="Cadastrar" action="#{tarefasManagedBean.cadastrar}"/>
 			</h:form>
 		</div>
+		<div id="modalEdicao" class="modal">
+		 	<h:form id="formTarefaAtualizar">
+				<h2>Editar tarefa</h2>
+				<p class="texto-mutado">Tenha certeza dos dados que você coloca aqui.</p>
+				<h:inputText value="#{tarefasManagedBean.tarefa.titulo}" a:placeholder="Título" required="true" requiredMessage="É necessário digitar o nome."/>
+				<h:inputTextarea value="#{tarefasManagedBean.tarefa.descricao}" a:placeholder="Descrição" required="true" requiredMessage="É necessário digitar a descrição" rows="4"/>
+				<h:inputText a:type="datetime-local" id="dataHoraEdicao" value="#{tarefasManagedBean.tarefa.dataHora}" converter="localDateTimeConverter"  a:placeholder="Até dd/MM/yyyy HH:mm"/>
+				<h:selectOneMenu value="#{tarefasManagedBean.tarefa.prioridade}" >
+				    <f:selectItems value="#{tarefasManagedBean.niveisPrioridade}" />
+				</h:selectOneMenu>
+				<h:commandButton value="Atualizar" action="#{tarefasManagedBean.atualizar}"/>
+				<div class="btn-excluir" onclick="excluirEtapa1()">Excluir</div>
+				<h:commandButton onclick="excluirEtapa2()" id="btn-excluir" value="Certeza? Clique aqui para confirmar." action="#{tarefasManagedBean.excluir}"/>
+			</h:form>
+		</div>
+		
 	</h:body>
 	<!-- Remember to include jQuery :) -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
@@ -62,9 +86,18 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 	<script>
-		$(document).ready(function(){
-			  //$('input[id="formTarefa:dataHora"]').mask('00/00/0000 00:00'); 
-			  $('input[id="formTarefa:dataHora"]').attr('type', 'datetime-local');
-		});
+		  const excluirEtapa1 = () => {
+			  $('.btn-excluir').hide();
+			  $("input[id='formTarefaAtualizar:btn-excluir']").show();
+		  }
+		  
+		  const excluirEtapa2 = () => {
+			  $('.btn-excluir').show();
+			  $("input[id='formTarefaAtualizar:btn-excluir']").hide();
+		  }
+		  
+		  const abrirModalDeEdicao = () => {
+			  $("#modalEdicao").modal("show");
+		  }
 	</script>
 </html>

@@ -27,7 +27,7 @@ img {
 	border-radius: 10px;
 }
 
-input, textarea, select {
+input, textarea, select, .btn-excluir  {
 	padding: 9px 12px;
     border: 2px solid #F1F1F1 !important; 
     outline: none !important;
@@ -52,7 +52,7 @@ ul {
 	
 }
 
-input[type="submit"], .btn {
+input[type="submit"], .btn, .btn-excluir  {
 	background-color: #015FFA;
 	color: white;
 	border: none;

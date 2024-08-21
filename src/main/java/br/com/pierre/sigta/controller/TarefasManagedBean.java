@@ -14,17 +14,38 @@ import br.com.pierre.sigta.util.LoginUtil;
 @ViewScoped
 public class TarefasManagedBean {
 	private Tarefa tarefa = new Tarefa();
-	DAOGeneric<Tarefa> dao = new DAOGeneric<>();
+	private DAOGeneric<Tarefa> daoTarefa = new DAOGeneric<Tarefa>();
 	
 	public String cadastrar() {
-		System.out.println("Usuário: " + LoginUtil.getUsuario());
 		tarefa.setResponsavel(LoginUtil.getUsuario());
-		tarefa = dao.salvar(tarefa);
-		return "";
+		daoTarefa.salvar(tarefa);
+		tarefa = new Tarefa();
+		return "dash?faces-redirect=true";
 	}
 	
+	public String atualizar() {
+		daoTarefa.atualizar(tarefa);
+		tarefa = new Tarefa();
+		return "dash?faces-redirect=true";
+	}
+	
+	public String excluir() {
+		daoTarefa.deletar(tarefa);
+		tarefa = new Tarefa();
+		return "dash?faces-redirect=true";
+	}
+	
+	public void selecionarTarefa(Tarefa tarefa) {
+		this.tarefa = tarefa;
+	}
+	
+	
 	public List<Tarefa> getTarefas() {
-        return LoginUtil.getUsuario().getTarefas();
+		List<Tarefa> listaTarefas = daoTarefa.getEntityManager().createNamedQuery("Tarefas.de")
+				.setParameter("responsavel", LoginUtil.getUsuario())
+				.getResultList();
+		
+        return listaTarefas;
 	}
 	
 	public Prioridade[] getNiveisPrioridade(){
