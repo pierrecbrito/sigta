@@ -18,22 +18,23 @@
 						<a class="btn" href="#ex1" rel="modal:open">Adicionar tarefa</a>
 					</div>
 					
-					<h:dataTable value="#{tarefasManagedBean.tarefas}" var="tarefa" id="tabelaTarefas">
+					<h:dataTable value="#{tarefasManagedBean.tarefas}" var="tarefaLinha" id="tabelaTarefas">
 						<h:column>
 							<f:facet name="header">Título</f:facet>
-							<h:outputText value="#{tarefa.titulo}" />
+							<h:outputText value="#{tarefaLinha.titulo}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">Descrição</f:facet>
-							<h:outputText value="#{tarefa.descricao}" />
+							<h:outputText value="#{tarefaLinha.descricao}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">Data e hora</f:facet>
-							<h:outputText value="#{tarefa.dataHora}" />
+							<h:outputText value="#{tarefaLinha.dataHora.hour}:#{tarefaLinha.dataHora.minute}h" />
+							<h:outputText value=" de #{tarefaLinha.dataHora.dayOfMonth}/#{tarefaLinha.dataHora.monthValue}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">Prioridade</f:facet>
-							<h:outputText value="#{tarefa.prioridade}" />
+							<h:outputText value="#{tarefaLinha.prioridade}" />
 						</h:column>
 					</h:dataTable>
 				</section>

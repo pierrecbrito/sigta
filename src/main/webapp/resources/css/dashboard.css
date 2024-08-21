@@ -10,12 +10,17 @@
 #tabelaTarefas {
 	width: 100%;
 	position: relative;
-	background-color: #F0F0F0;
 	padding: 1em;
 	border-radius: 5px;
 	margin-top: 1em;
 }
 
+#tabelaTarefas thead {
+	background-color: #F0F0F0;
+	padding: 1.5em;
+}
+
 #tabelaTarefas td {
 	text-align: center;
+	padding: 1.5em;
 }
