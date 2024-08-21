@@ -13,11 +13,27 @@
 		
 		<main id="container">
 			<div id="content">
-				<section class="card">
-					<div class="container-direita">
+				<div class="container-direita">
+					<h:form id="formUser">
 						<a id="btn-addtarefa" class="btn" href="#ex1" rel="modal:open">Adicionar tarefa</a>
+						<h:commandButton  id="btn-sair" value="Sair" action="#{tarefasManagedBean.logout}"/>
+					</h:form>
+					<div id="letra-usuario">
+						<span id="letra"><h:outputText value="#{tarefasManagedBean.primeiraLetraNome}"/></span>
 					</div>
-					
+				</div>
+				<section class="card">
+					<div id="status-tarefas">
+						<div class="texto-mutado" id="barra-status">
+							<h:outputText value="#{tarefasManagedBean.quantTarefasFinalizadas}"/>/<h:outputText value="#{tarefasManagedBean.quantTarefasTotal}"/>
+							 (<h:outputText value="#{tarefasManagedBean.porcentagemTarefasFinalizadas}">
+							 	<f:convertNumber type="number" groupingUsed="true" minFractionDigits="1" pattern="#0.0"/>
+							 </h:outputText>%)
+						</div>
+						<div id="barra-progresso">
+							<div id="progresso" style="width: #{tarefasManagedBean.porcentagemTarefasFinalizadas}%"></div>
+						</div>
+					</div>
 					<h:dataTable value="#{tarefasManagedBean.tarefas}" var="tarefaLinha" id="tabelaTarefas">			
 						<h:column>
 							<f:facet name="header">Título</f:facet>
@@ -77,13 +93,13 @@
 		 	<h:form id="formTarefaAtualizar">
 				<h2>Editar tarefa</h2>
 				<p class="texto-mutado">Tenha certeza dos dados que você coloca aqui.</p>
-				<h:inputText value="#{tarefasManagedBean.tarefa.titulo}" a:placeholder="Título" required="true" requiredMessage="É necessário digitar o nome."/>
-				<h:inputTextarea value="#{tarefasManagedBean.tarefa.descricao}" a:placeholder="Descrição" required="true" requiredMessage="É necessário digitar a descrição" rows="4"/>
-				<h:inputText a:type="datetime-local" id="dataHoraEdicao" value="#{tarefasManagedBean.tarefa.dataHora}" converter="localDateTimeConverter"  a:placeholder="Até dd/MM/yyyy HH:mm"/>
-				<h:selectOneMenu value="#{tarefasManagedBean.tarefa.prioridade}" >
+				<h:inputText value="#{tarefasManagedBean.tarefaEdit.titulo}" a:placeholder="Título" required="true" requiredMessage="É necessário digitar o nome."/>
+				<h:inputTextarea value="#{tarefasManagedBean.tarefaEdit.descricao}" a:placeholder="Descrição" required="true" requiredMessage="É necessário digitar a descrição" rows="4"/>
+				<h:inputText a:type="datetime-local" id="dataHoraEdicao" value="#{tarefasManagedBean.tarefaEdit.dataHora}" converter="localDateTimeConverter"  a:placeholder="Até dd/MM/yyyy HH:mm"/>
+				<h:selectOneMenu value="#{tarefasManagedBean.tarefaEdit.prioridade}" >
 				    <f:selectItems value="#{tarefasManagedBean.niveisPrioridade}" />
 				</h:selectOneMenu>
-				<h:selectOneMenu value="#{tarefasManagedBean.tarefa.status}" >
+				<h:selectOneMenu value="#{tarefasManagedBean.tarefaEdit.status}" >
 				    <f:selectItems value="#{tarefasManagedBean.tiposStatus}" />
 				</h:selectOneMenu>
 				<h:commandButton value="Atualizar" action="#{tarefasManagedBean.atualizar}"/>

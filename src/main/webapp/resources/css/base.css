@@ -52,7 +52,7 @@ ul {
 	
 }
 
-input[type="submit"], .btn, .btn-excluir  {
+input[type="submit"], .btn, .btn-excluir, #btn-sair  {
 	background-color: #015FFA;
 	color: white;
 	border: none;
@@ -62,4 +62,8 @@ input[type="submit"], .btn, .btn-excluir  {
 	font-size: 0.9em;
 	border: 2px solid #015FFA !important;
 	padding: 9px 12px;
+}
+
+#formUser {
+	display: inline-block;
 }

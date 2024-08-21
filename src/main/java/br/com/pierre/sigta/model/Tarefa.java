@@ -15,7 +15,13 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 @Entity
-@NamedQueries({@NamedQuery(name = "Tarefas.de", query = "select t from Tarefa t where t.responsavel = :responsavel")})
+@NamedQueries({
+			   @NamedQuery(name = "Tarefas.de", query = "select t from Tarefa t where t.responsavel = :responsavel"),
+			   @NamedQuery(name = "QuantidadeTarefas.de", query = "SELECT COUNT(t) FROM Tarefa t WHERE t.responsavel = :responsavel"),
+			   @NamedQuery(name = "QuantidadeTarefasFinalizadas.de", query = "SELECT COUNT(t) FROM Tarefa t WHERE t.responsavel = :responsavel AND t.status = :statusFinalizada"),
+			   @NamedQuery(name = "TarefasEmAndamentoOrdenadas.de", query = "SELECT t FROM Tarefa t WHERE t.status = :statusEmAndamento AND t.responsavel = :responsavel  ORDER BY t.dataHora ASC "),
+			   @NamedQuery(name = "TarefasFinalizadasOrdenadas.de", query = "SELECT t FROM Tarefa t WHERE t.status = :statusFinalizada AND t.responsavel = :responsavel  ORDER BY t.dataHora ASC ")
+			   })
 public class Tarefa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -90,6 +96,12 @@ public class Tarefa {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "Tarefa [id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", responsavel=" + responsavel
+				+ ", prioridade=" + prioridade + ", status=" + status + ", dataHora=" + dataHora + "]";
 	}
 	
 }
