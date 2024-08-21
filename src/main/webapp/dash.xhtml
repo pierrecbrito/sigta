@@ -47,9 +47,11 @@
 								<h:commandButton onclick="abrirModalDeEdicao()" id="btn-selecTarefa" value="↗" action="#{tarefasManagedBean.selecionarTarefa(tarefaLinha)}">
 	            					<f:ajax render="formTarefaAtualizar" />
 								</h:commandButton>
-								<h:commandButton id="btn-concluirTarefa" value="✅" action="#{tarefasManagedBean.concluirTarefa(tarefaLinha)}">
-	            					<f:ajax render="tabelaTarefas" />
-								</h:commandButton>
+								<h:panelGroup rendered="#{tarefaLinha.status.name() == 'EXECUTANDO'}">
+						        	<h:commandButton id="btn-concluirTarefa" value="✅" action="#{tarefasManagedBean.concluirTarefa(tarefaLinha)}">
+							            	<f:ajax render="tabelaTarefas" />
+									</h:commandButton>
+							    </h:panelGroup>
 							</div>
 						</h:column>
 						
@@ -80,6 +82,9 @@
 				<h:inputText a:type="datetime-local" id="dataHoraEdicao" value="#{tarefasManagedBean.tarefa.dataHora}" converter="localDateTimeConverter"  a:placeholder="Até dd/MM/yyyy HH:mm"/>
 				<h:selectOneMenu value="#{tarefasManagedBean.tarefa.prioridade}" >
 				    <f:selectItems value="#{tarefasManagedBean.niveisPrioridade}" />
+				</h:selectOneMenu>
+				<h:selectOneMenu value="#{tarefasManagedBean.tarefa.status}" >
+				    <f:selectItems value="#{tarefasManagedBean.tiposStatus}" />
 				</h:selectOneMenu>
 				<h:commandButton value="Atualizar" action="#{tarefasManagedBean.atualizar}"/>
 				<div class="btn-excluir" onclick="excluirEtapa1()">Excluir</div>

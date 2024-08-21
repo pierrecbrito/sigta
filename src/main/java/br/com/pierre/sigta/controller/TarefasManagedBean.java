@@ -59,6 +59,10 @@ public class TarefasManagedBean {
 	public Prioridade[] getNiveisPrioridade(){
 		   return Prioridade.values();
 	}
+	
+	public Status[] getTiposStatus(){
+		   return Status.values();
+	}
 
 	public Tarefa getTarefa() {
 		return tarefa;

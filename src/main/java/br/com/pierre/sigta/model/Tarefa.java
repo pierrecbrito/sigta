@@ -32,7 +32,7 @@ public class Tarefa {
 	private Prioridade prioridade;
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private Status status = Status.EM_ANDAMENTO;
+	private Status status = Status.EXECUTANDO;
 	@Column(nullable = false)
 	private LocalDateTime dataHora;
 	
