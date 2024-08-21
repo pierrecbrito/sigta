@@ -30,6 +30,9 @@ public class Tarefa {
 	@Enumerated(EnumType.STRING)
     @Column(nullable = false)
 	private Prioridade prioridade;
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private Status status = Status.EM_ANDAMENTO;
 	@Column(nullable = false)
 	private LocalDateTime dataHora;
 	
@@ -80,7 +83,13 @@ public class Tarefa {
 	public void setDataHora(LocalDateTime dataHora) {
 		this.dataHora = dataHora;
 	}
-	
-	
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 	
 }

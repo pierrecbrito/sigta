@@ -51,3 +51,13 @@ input[id="formTarefaAtualizar:btn-excluir"] {
 table[id="formTarefa:tabelaTarefas"] tbody tr:hover {
 	background-color: #F0F0F0
 }
+
+.container-btn-acoes {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.container-btn-acoes input {
+	margin-right: 9px;
+}

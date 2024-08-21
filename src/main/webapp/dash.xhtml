@@ -36,12 +36,21 @@
 							<f:facet name="header">Prioridade</f:facet>
 							<h:outputText value="#{tarefaLinha.prioridade}" />
 						</h:column>
+						<h:column>
+							<f:facet name="header">Status</f:facet>
+							<h:outputText value="#{tarefaLinha.status}" />
+						</h:column>
 						
 						<h:column>
 							<f:facet name="header">-</f:facet>
-							<h:commandButton onclick="abrirModalDeEdicao()" id="btn-selecTarefa" value="↗" action="#{tarefasManagedBean.selecionarTarefa(tarefaLinha)}">
-            					<f:ajax render="formTarefaAtualizar" />
-							</h:commandButton>
+							<div class="container-btn-acoes">
+								<h:commandButton onclick="abrirModalDeEdicao()" id="btn-selecTarefa" value="↗" action="#{tarefasManagedBean.selecionarTarefa(tarefaLinha)}">
+	            					<f:ajax render="formTarefaAtualizar" />
+								</h:commandButton>
+								<h:commandButton id="btn-concluirTarefa" value="✅" action="#{tarefasManagedBean.concluirTarefa(tarefaLinha)}">
+	            					<f:ajax render="tabelaTarefas" />
+								</h:commandButton>
+							</div>
 						</h:column>
 						
 					</h:dataTable>
