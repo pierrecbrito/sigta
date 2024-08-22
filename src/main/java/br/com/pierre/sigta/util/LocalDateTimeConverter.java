@@ -21,7 +21,7 @@ public class LocalDateTimeConverter implements Converter {
         }
         
         value = value.replace("T", " ");
-        System.out.println(value);
+
         try {
             return LocalDateTime.parse(value, DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {

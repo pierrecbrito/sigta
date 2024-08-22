@@ -2,7 +2,7 @@ package br.com.pierre.sigta.controller;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -11,7 +11,7 @@ import br.com.pierre.sigta.model.Usuario;
 import br.com.pierre.sigta.util.LoginUtil;
 
 @ManagedBean( name = "signupManaged")
-@ViewScoped
+@RequestScoped
 public class SignUpManagedBean {
 	private Usuario usuario = new Usuario();
 	DAOGeneric<Usuario> dao = new DAOGeneric<>();

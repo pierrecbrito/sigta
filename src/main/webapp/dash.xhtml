@@ -22,6 +22,7 @@
 						<span id="letra"><h:outputText value="#{tarefasManagedBean.primeiraLetraNome}"/></span>
 					</div>
 				</div>
+				
 				<section class="card">
 					<div id="status-tarefas">
 						<div class="texto-mutado" id="barra-status">
@@ -34,27 +35,53 @@
 							<div id="progresso" style="width: #{tarefasManagedBean.porcentagemTarefasFinalizadas}%"></div>
 						</div>
 					</div>
+					<div class="container-direita">
+						<div id="filtros">
+							<span id="filtro-expand" class="">Filtros</span>🔽
+							<div id="filtro-expand-content">
+							    <h:form id="formFiltro">
+									<h:inputText id="titulo" value="#{tarefasManagedBean.tituloFiltro}" a:placeholder="Título"/>
+									<h:inputText id="dataHora" a:type="datetime-local" value="#{tarefasManagedBean.dataHoraFiltro}" converter="localDateTimeConverter"  a:placeholder="Até dd/MM/yyyy HH:mm"/>
+									<h:selectOneMenu id="prioridade" value="#{tarefasManagedBean.prioridadeFiltro}" >
+									    <f:selectItem itemLabel="Selecione" itemValue="" />
+									    <f:selectItems value="#{tarefasManagedBean.niveisPrioridade}" />
+									  
+									</h:selectOneMenu>
+									<h:selectOneMenu id="status" value="#{tarefasManagedBean.statusFiltro}" >
+									    <f:selectItem itemLabel="Selecione" itemValue="" />
+									    <f:selectItems value="#{tarefasManagedBean.tiposStatus}" />
+									</h:selectOneMenu>
+									<h:inputTextarea value="#{tarefasManagedBean.descricaoFiltro}" a:placeholder="Descrição" rows="4"/>
+									<h:commandButton value="Buscar" action="#{tarefasManagedBean.getTarefas}">
+									</h:commandButton>
+							    </h:form>
+	                        </div>
+						</div>
+					</div>
 					<h:dataTable value="#{tarefasManagedBean.tarefas}" var="tarefaLinha" id="tabelaTarefas">			
 						<h:column>
 							<f:facet name="header">Título</f:facet>
 							<h:outputText value="#{tarefaLinha.titulo}" />
 						</h:column>
 						<h:column>
-							<f:facet name="header">Descrição</f:facet>
-							<h:outputText value="#{tarefaLinha.descricao}" />
-						</h:column>
-						<h:column>
 							<f:facet name="header">Data e hora</f:facet>
-							<h:outputText value="#{tarefaLinha.dataHora.hour}:#{tarefaLinha.dataHora.minute}h" />
-							<h:outputText value=" de #{tarefaLinha.dataHora.dayOfMonth}/#{tarefaLinha.dataHora.monthValue}" />
+							<h:outputText value="#{tarefaLinha.dataFinal}">
+								 <f:convertDateTime pattern="HH:mm'h' 'de' dd 'de' MMMM" locale="pt_BR"/>
+							</h:outputText>
 						</h:column>
 						<h:column>
-							<f:facet name="header">Prioridade</f:facet>
-							<h:outputText value="#{tarefaLinha.prioridade}" />
+							<h:panelGroup rendered="#{tarefaLinha.prioridadeDescricao == 'Alta' &amp;&amp; tarefaLinha.statusDescricao == 'Executando'}">
+						        <f:facet name="header">Prioridade</f:facet>🔥
+								<h:outputText value="#{tarefaLinha.prioridadeDescricao}" />
+							</h:panelGroup>
+							<h:panelGroup rendered="#{tarefaLinha.prioridadeDescricao != 'Alta' || tarefaLinha.statusDescricao != 'Executando'}">
+						        <f:facet name="header">Prioridade</f:facet>
+								<h:outputText value="#{tarefaLinha.prioridadeDescricao}" />
+							</h:panelGroup>
 						</h:column>
 						<h:column>
 							<f:facet name="header">Status</f:facet>
-							<h:outputText value="#{tarefaLinha.status}" />
+							<h:outputText value="#{tarefaLinha.statusDescricao}" />
 						</h:column>
 						
 						<h:column>
@@ -63,8 +90,8 @@
 								<h:commandButton onclick="abrirModalDeEdicao()" id="btn-selecTarefa" value="↗" action="#{tarefasManagedBean.selecionarTarefa(tarefaLinha)}">
 	            					<f:ajax render="formTarefaAtualizar" />
 								</h:commandButton>
-								<h:panelGroup rendered="#{tarefaLinha.status.name() == 'EXECUTANDO'}">
-						        	<h:commandButton id="btn-concluirTarefa" value="✅" action="#{tarefasManagedBean.concluirTarefa(tarefaLinha)}">
+								<h:panelGroup rendered="#{tarefaLinha.statusDescricao == 'Executando'}">
+						        	<h:commandButton id="btn-concluirTarefa" value="✔" action="#{tarefasManagedBean.concluirTarefa(tarefaLinha)}">
 							            	<f:ajax render="tabelaTarefas" />
 									</h:commandButton>
 							    </h:panelGroup>
@@ -129,5 +156,11 @@
 		  const abrirModalDeEdicao = () => {
 			  $("#modalEdicao").modal("show");
 		  }
+		  
+		  $("#filtro-expand").on("click", function(){
+              $("#filtro-expand-content").animate({
+            	    height: 'toggle'
+              });
+          });
 	</script>
 </html>

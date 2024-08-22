@@ -110,4 +110,33 @@ table[id="formTarefa:tabelaTarefas"] tbody tr:hover {
 	font-weight: bold;
 }
 
+#filtros {
+	margin-top: 1em;
+}
+
+#filtro-expand {
+	cursor: pointer;
+}
+
+#filtro-expand:hover {
+	text-decoration: underline;
+}
+
+#filtro-expand-content {
+	display: none;
+	width: 100%;
+}
+
+#formFiltro input, #formFiltro select {
+ 	width: 23%;
+ 	display: inline-block;
+ 	margin: 10px;
+ }
+ 
+ #formFiltro textarea {
+ 	margin: 10px;
+ 	width: 97%;
+ }
+
+
     

@@ -1,5 +1,6 @@
 package br.com.pierre.sigta.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,13 @@ public class TarefasManagedBean {
 	private Tarefa tarefa = new Tarefa();
 	private Tarefa tarefaEdit = new Tarefa();
 	private DAOGeneric<Tarefa> daoTarefa = new DAOGeneric<Tarefa>();
+	
+	//Filtros
+	private String tituloFiltro = "";
+	private String descricaoFiltro = "";
+	private Prioridade prioridadeFiltro = null;
+	private Status statusFiltro = null;
+	private LocalDateTime dataHoraFiltro = null;
 	
 	public String cadastrar() {
 		tarefa.setResponsavel(LoginUtil.getUsuario());
@@ -42,6 +50,18 @@ public class TarefasManagedBean {
 		this.tarefaEdit = tarefa;
 	}
 	
+	public void limparFiltros() {
+		this.tituloFiltro = "";
+		this.descricaoFiltro = "";
+		this.prioridadeFiltro = null;
+		this.statusFiltro = null;
+		this.dataHoraFiltro = null;
+	}
+	
+	public String filtrar() {
+		return "dash";
+	}
+	
 	public String concluirTarefa(Tarefa tarefa) {
 		this.tarefaEdit = tarefa;
 		this.tarefaEdit.setStatus(Status.FINALIZADA);
@@ -54,6 +74,22 @@ public class TarefasManagedBean {
 		List<Tarefa> listaTarefas = new ArrayList<Tarefa>();
 		listaTarefas.addAll(getTarefasEmAndamentoOrdenadas());
 		listaTarefas.addAll(getTarefasFinalizadasOrdenadas());
+		
+		if(tituloFiltro != null && !tituloFiltro.isEmpty()) {
+			listaTarefas.removeIf(t -> !t.getTitulo().toLowerCase().contains(tituloFiltro.toLowerCase()));
+		}
+		
+		if(descricaoFiltro != null && !descricaoFiltro.isEmpty()) { 
+			listaTarefas.removeIf(t -> !t.getDescricao().toLowerCase().contains(descricaoFiltro.toLowerCase()));
+		}
+		
+		if(prioridadeFiltro != null) {
+			listaTarefas.removeIf(t -> !t.getPrioridade().equals(prioridadeFiltro));
+		}
+		
+		if(statusFiltro != null) {
+			listaTarefas.removeIf(t -> !t.getStatus().equals(statusFiltro));
+		}
 		
         return listaTarefas;
 	}
@@ -122,6 +158,54 @@ public class TarefasManagedBean {
 
 	public void setTarefaEdit(Tarefa tarefaEdit) {
 		this.tarefaEdit = tarefaEdit;
+	}
+
+	public DAOGeneric<Tarefa> getDaoTarefa() {
+		return daoTarefa;
+	}
+
+	public void setDaoTarefa(DAOGeneric<Tarefa> daoTarefa) {
+		this.daoTarefa = daoTarefa;
+	}
+
+	public String getTituloFiltro() {
+		return tituloFiltro;
+	}
+
+	public void setTituloFiltro(String tituloFiltro) {
+		this.tituloFiltro = tituloFiltro;
+	}
+
+	public String getDescricaoFiltro() {
+		return descricaoFiltro;
+	}
+
+	public void setDescricaoFiltro(String descricaoFiltro) {
+		this.descricaoFiltro = descricaoFiltro;
+	}
+
+	public Prioridade getPrioridadeFiltro() {
+		return prioridadeFiltro;
+	}
+
+	public void setPrioridadeFiltro(Prioridade prioridadeFiltro) {
+		this.prioridadeFiltro = prioridadeFiltro;
+	}
+
+	public Status getStatusFiltro() {
+		return statusFiltro;
+	}
+
+	public void setStatusFiltro(Status statusFiltro) {
+		this.statusFiltro = statusFiltro;
+	}
+
+	public LocalDateTime getDataHoraFiltro() {
+		return dataHoraFiltro;
+	}
+
+	public void setDataHoraFiltro(LocalDateTime dataHoraFiltro) {
+		this.dataHoraFiltro = dataHoraFiltro;
 	}
 	
 	

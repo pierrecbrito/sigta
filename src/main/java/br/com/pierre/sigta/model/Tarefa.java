@@ -1,6 +1,8 @@
 package br.com.pierre.sigta.model;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -96,6 +98,18 @@ public class Tarefa {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+	
+	public Date getDataFinal() {
+		return Date.from(dataHora.atZone(ZoneId.systemDefault()).toInstant());
+	}
+	
+	public String getPrioridadeDescricao() {
+		return this.prioridade.name().substring(0, 1).toUpperCase() + this.prioridade.name().substring(1).toLowerCase();
+	}
+	
+	public String getStatusDescricao() {
+		return this.status.name().substring(0, 1).toUpperCase() + this.status.name().substring(1).toLowerCase();
 	}
 
 	@Override
