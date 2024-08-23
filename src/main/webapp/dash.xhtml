@@ -33,7 +33,7 @@
 							 </h:outputText>%)
 						</div>
 						<div id="barra-progresso">
-							<div id="progresso" style="width: #{tarefasManagedBean.porcentagemTarefasFinalizadas}%"></div>
+							<h:panelGroup id="progresso" style="width: #{tarefasManagedBean.porcentagemTarefasFinalizadas}%"/>
 						</div>
 					</div>
 					<div class="container-direita">
@@ -113,9 +113,11 @@
 	            					<f:ajax render="formTarefaAtualizar" />
 								</h:commandButton>
 								<h:panelGroup rendered="#{tarefaLinha.statusDescricao == 'Executando'}">
-						        	<h:commandButton id="btn-concluirTarefa" value="✔" action="#{tarefasManagedBean.concluirTarefa(tarefaLinha)}">
-							            	<f:ajax render="tabelaTarefas totalFeitas totalTarefas finalizadasPorcentagem progresso" />
-									</h:commandButton>
+									<h:form>	
+							        	<h:commandButton id="btn-concluirTarefa" value="✔" action="#{tarefasManagedBean.concluirTarefa(tarefaLinha)}">
+								            	<f:ajax execute="@form" render="tabelaTarefas totalFeitas totalTarefas finalizadasPorcentagem progresso" />
+										</h:commandButton>
+									</h:form>
 							    </h:panelGroup>
 							</div>
 						</h:column>

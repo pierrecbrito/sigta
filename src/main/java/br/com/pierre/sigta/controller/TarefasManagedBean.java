@@ -76,7 +76,7 @@ public class TarefasManagedBean {
 		this.tarefaEdit.setStatus(Status.FINALIZADA);
 		daoTarefa.atualizar(this.tarefaEdit);
 		this.tarefaEdit = new Tarefa();
-		return "dash?faces-redirect=true";
+		return "";
 	}
 	
 	public List<Tarefa> getTarefas() {

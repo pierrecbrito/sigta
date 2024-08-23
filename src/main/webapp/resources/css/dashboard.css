@@ -89,7 +89,8 @@ table[id="formTarefa:tabelaTarefas"] tbody tr:hover {
 	width: 0%;
 	height: 1em;
 	border-radius: 5px;
-	transition: width 0.5s;
+	transition: width 1s;
+	display: block;
 }
 
 #barra-status {
