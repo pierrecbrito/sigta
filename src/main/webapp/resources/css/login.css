@@ -9,7 +9,7 @@ body {
 }
 
 .texto-mutado {
-	margin-bottom: 1.5em;
+	margin-bottom: 2em;
 }
 
 #painel-esquerda {
@@ -65,9 +65,6 @@ body {
 	max-width: 400px;
 }
 
-input[type="text"] {
-	margin-top: 1.2em;
-}
 
 input[type="password"] {
 	margin-bottom: 1.2em;

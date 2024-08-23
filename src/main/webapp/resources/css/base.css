@@ -32,10 +32,8 @@ input, textarea, select, .btn-excluir  {
     border: 2px solid #F1F1F1 !important; 
     outline: none !important;
     width: 100%;
-    margin-top: 0.6em;
     border-radius: 5px;
     transition: 0.5s;
-    margin-top: 1em
 }
 
 input:focus {
@@ -64,6 +62,17 @@ input[type="submit"], .btn, .btn-excluir, #btn-sair  {
 	padding: 9px 12px;
 }
 
+input[type="submit"], .btn-excluir {
+	margin-top: 1em;
+}
+
 #formUser {
 	display: inline-block;
+}
+
+.label {
+	font-weight: 500;
+	margin-top: 0.8em;
+	margin-bottom: 0.3em;
+	display: block;
 }

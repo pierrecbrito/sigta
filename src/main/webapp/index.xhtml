@@ -14,8 +14,10 @@
 				<h2>Login</h2>
 				<p class="texto-mutado">Entre com sua conta e comece a aumentar sua produtividade</p>
 				<h:messages id="mensagens"/> 
-				<h:inputText value="#{loginManaged.email}" a:placeholder="E-mail" required="true" requiredMessage="É necessário digitar o e-mail."/>
-				<h:inputSecret value="#{loginManaged.senha}" a:placeholder="Senha" required="true" requiredMessage="É necessário digitar a senha."/>
+				<h:outputLabel styleClass="label" for="login-email" value="E-mail:"/>
+				<h:inputText id="login-email" value="#{loginManaged.email}" a:placeholder="E-mail" required="true" requiredMessage="É necessário digitar o e-mail."/>
+				<h:outputLabel styleClass="label" for="login-senha" value="Senha:"/>
+				<h:inputSecret id="login-senha" value="#{loginManaged.senha}" a:placeholder="Senha" required="true" requiredMessage="É necessário digitar a senha."/>
 				<h:commandButton value="Entrar" action="#{loginManaged.logar}"/>
 				<p id="linha-container"><span id="linha-conteudo">ou</span></p>
 			</h:form>

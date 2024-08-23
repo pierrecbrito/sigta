@@ -125,17 +125,45 @@ table[id="formTarefa:tabelaTarefas"] tbody tr:hover {
 #filtro-expand-content {
 	display: none;
 	width: 100%;
+	text-align: left !important;
 }
 
-#formFiltro input, #formFiltro select {
- 	width: 23%;
+.container-input-filtro {
+	width: 19%;
  	display: inline-block;
- 	margin: 10px;
+ 	margin: 4px;
+}
+
+.container-input-filtro:nth-child(0) {
+	margin-left: 0;
+}
+
+.container-input-filtro:nth-child(4) {
+	margin-right: 0;
+}
+
+.container-input-filtro .label {
+	text-align: left;
+}
+
+
+#formFiltro input, #formFiltro select {
+ 	
  }
  
  #formFiltro textarea {
- 	margin: 10px;
- 	width: 97%;
+ 	width: 100%;
+ }
+ 
+ label[for="formTarefa:tarefa-dataLimite-add"], label[for="formTarefa:tarefa-dataLimite-edit"] {
+     margin-top: 0.4em;
+ }
+ 
+ .subtexto-modal {
+	font-size: 0.9em;
+	color: #666;
+	margin-top: 0.5em;
+	margin-bottom: 1.2em;
  }
 
 

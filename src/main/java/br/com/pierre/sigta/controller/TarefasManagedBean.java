@@ -4,8 +4,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import br.com.pierre.sigta.dao.DAOGeneric;
 import br.com.pierre.sigta.model.Prioridade;
@@ -25,25 +27,32 @@ public class TarefasManagedBean {
 	private String descricaoFiltro = "";
 	private Prioridade prioridadeFiltro = null;
 	private Status statusFiltro = null;
-	private LocalDateTime dataHoraFiltro = null;
+	private LocalDateTime dataLimiteFiltro = LocalDateTime.now();
+	private String codigoFiltro = "";
 	
 	public String cadastrar() {
 		tarefa.setResponsavel(LoginUtil.getUsuario());
 		daoTarefa.salvar(this.tarefa);
-		this.tarefaEdit = new Tarefa();
-		return "dash?faces-redirect=true";
+		this.tarefa = new Tarefa();
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage("globalMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Tarefa salva com sucesso!", null));
+		return "";
 	}
 	
 	public String atualizar() {
 		daoTarefa.atualizar(this.tarefaEdit);
-		this.tarefaEdit = new Tarefa();
-		return "dash?faces-redirect=true";
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage("globalMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Tarefa atualizada com sucesso!", null));
+		return "";
 	}
 	
 	public String excluir() {
 		daoTarefa.deletar(this.tarefaEdit);
 		this.tarefaEdit = new Tarefa();
-		return "dash?faces-redirect=true";
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage("globalMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Tarefa excluída com sucesso!", null));
+		return "";
 	}
 	
 	public void selecionarTarefa(Tarefa tarefa) {
@@ -55,7 +64,7 @@ public class TarefasManagedBean {
 		this.descricaoFiltro = "";
 		this.prioridadeFiltro = null;
 		this.statusFiltro = null;
-		this.dataHoraFiltro = null;
+		this.dataLimiteFiltro = null;
 	}
 	
 	public String filtrar() {
@@ -74,6 +83,10 @@ public class TarefasManagedBean {
 		List<Tarefa> listaTarefas = new ArrayList<Tarefa>();
 		listaTarefas.addAll(getTarefasEmAndamentoOrdenadas());
 		listaTarefas.addAll(getTarefasFinalizadasOrdenadas());
+		
+		if (codigoFiltro != null && !codigoFiltro.isEmpty()) {
+			listaTarefas.removeIf(t -> !t.getCodigo().toLowerCase().contains(codigoFiltro.toLowerCase()));
+		}
 		
 		if(tituloFiltro != null && !tituloFiltro.isEmpty()) {
 			listaTarefas.removeIf(t -> !t.getTitulo().toLowerCase().contains(tituloFiltro.toLowerCase()));
@@ -121,7 +134,13 @@ public class TarefasManagedBean {
 	
 	
 	public float getPorcentagemTarefasFinalizadas() {
-		return (getQuantTarefasFinalizadas() * 100) / getQuantTarefasTotal();
+		Long quantTarefasTotal = getQuantTarefasTotal();
+		
+		if (quantTarefasTotal == 0) {
+			return 0;
+		}
+		
+		return (getQuantTarefasFinalizadas() * 100) / quantTarefasTotal;
 	}
 	
 	public Long getQuantTarefasTotal() {
@@ -200,13 +219,20 @@ public class TarefasManagedBean {
 		this.statusFiltro = statusFiltro;
 	}
 
-	public LocalDateTime getDataHoraFiltro() {
-		return dataHoraFiltro;
+	public LocalDateTime getDataLimiteFiltro() {
+		return dataLimiteFiltro;
 	}
 
-	public void setDataHoraFiltro(LocalDateTime dataHoraFiltro) {
-		this.dataHoraFiltro = dataHoraFiltro;
+	public void setDataLimiteFiltro(LocalDateTime dataLimiteFiltro) {
+		this.dataLimiteFiltro = dataLimiteFiltro;
 	}
-	
+
+	public String getCodigoFiltro() {
+		return codigoFiltro;
+	}
+
+	public void setCodigoFiltro(String codigoFiltro) {
+		this.codigoFiltro = codigoFiltro;
+	}
 	
 }

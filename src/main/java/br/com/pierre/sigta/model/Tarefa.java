@@ -15,14 +15,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @NamedQueries({
 			   @NamedQuery(name = "Tarefas.de", query = "select t from Tarefa t where t.responsavel = :responsavel"),
 			   @NamedQuery(name = "QuantidadeTarefas.de", query = "SELECT COUNT(t) FROM Tarefa t WHERE t.responsavel = :responsavel"),
 			   @NamedQuery(name = "QuantidadeTarefasFinalizadas.de", query = "SELECT COUNT(t) FROM Tarefa t WHERE t.responsavel = :responsavel AND t.status = :statusFinalizada"),
-			   @NamedQuery(name = "TarefasEmAndamentoOrdenadas.de", query = "SELECT t FROM Tarefa t WHERE t.status = :statusEmAndamento AND t.responsavel = :responsavel  ORDER BY t.dataHora ASC "),
-			   @NamedQuery(name = "TarefasFinalizadasOrdenadas.de", query = "SELECT t FROM Tarefa t WHERE t.status = :statusFinalizada AND t.responsavel = :responsavel  ORDER BY t.dataHora ASC ")
+			   @NamedQuery(name = "TarefasEmAndamentoOrdenadas.de", query = "SELECT t FROM Tarefa t WHERE t.status = :statusEmAndamento AND t.responsavel = :responsavel  ORDER BY t.dataLimite ASC "),
+			   @NamedQuery(name = "TarefasFinalizadasOrdenadas.de", query = "SELECT t FROM Tarefa t WHERE t.status = :statusFinalizada AND t.responsavel = :responsavel  ORDER BY t.dataLimite ASC ")
 			   })
 public class Tarefa {
 	@Id
@@ -42,7 +45,28 @@ public class Tarefa {
 	@Column(nullable = false)
 	private Status status = Status.EXECUTANDO;
 	@Column(nullable = false)
-	private LocalDateTime dataHora;
+	private LocalDateTime dataLimite = LocalDateTime.now();
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime criadoEm;
+    @Column(nullable = false, unique = true)
+    private String codigo;
+ 
+    private String gerarCodigoUnico() {
+        String base = String.format("%s%s%d%s",
+                titulo,
+                descricao,
+                responsavel.getId(),
+                prioridade);
+
+        int hash = Math.abs(base.hashCode());
+        return String.format("%05d", hash % 100000); 
+    }
+    
+    @PrePersist
+    private void definirCodigo() {
+        this.codigo = gerarCodigoUnico();
+    }
 	
 	public Long getId() {
 		return id;
@@ -84,12 +108,12 @@ public class Tarefa {
 		this.prioridade = prioridade;
 	}
 	
-	public LocalDateTime getDataHora() {
-		return dataHora;
+	public LocalDateTime getDataLimite() {
+		return dataLimite;
 	}
 	
-	public void setDataHora(LocalDateTime dataHora) {
-		this.dataHora = dataHora;
+	public void setDataLimite(LocalDateTime dataLimite) {
+		this.dataLimite = dataLimite;
 	}
 
 	public Status getStatus() {
@@ -100,8 +124,8 @@ public class Tarefa {
 		this.status = status;
 	}
 	
-	public Date getDataFinal() {
-		return Date.from(dataHora.atZone(ZoneId.systemDefault()).toInstant());
+	public Date getDataLimiteComoDate() {
+		return Date.from(dataLimite.atZone(ZoneId.systemDefault()).toInstant());
 	}
 	
 	public String getPrioridadeDescricao() {
@@ -112,10 +136,18 @@ public class Tarefa {
 		return this.status.name().substring(0, 1).toUpperCase() + this.status.name().substring(1).toLowerCase();
 	}
 
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
 	@Override
 	public String toString() {
 		return "Tarefa [id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", responsavel=" + responsavel
-				+ ", prioridade=" + prioridade + ", status=" + status + ", dataHora=" + dataHora + "]";
+				+ ", prioridade=" + prioridade + ", status=" + status + ", dataLimite=" + dataLimite + ", criadoEm=" + criadoEm + "]";
 	}
 	
 }
