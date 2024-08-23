@@ -8,7 +8,13 @@
 		 <h:outputStylesheet library="css" name="system.css"  /> 
 		 <h:outputStylesheet library="css" name="dashboard.css"  /> 
 		 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"/>
-    	
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+		<!-- jQuery Modal -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+		 <h:outputScript name="js/code.js"/>
 	</h:head>
 	<h:body>
 		
@@ -74,7 +80,7 @@
 									<h:outputLabel styleClass="label" for="descricaoFiltro" value="Descrição:"/>
 									<h:inputTextarea id="descricaoFiltro" value="#{tarefasManagedBean.descricaoFiltro}" a:placeholder="Descrição" rows="2"/>
 									<h:commandButton value="Buscar" action="#{tarefasManagedBean.getTarefas}" id="btn-filtrar">
-										 <f:ajax execute="@form" render="@form tabelaTarefas"/>
+										 <f:ajax execute="@form" render="@all"/>
 									</h:commandButton>
 									<h:commandButton value="Limpar" action="#{tarefasManagedBean.limparFiltros}" id="btn-limpar-filtros">
 										 <f:ajax render="@form tabelaTarefas"/>
@@ -128,9 +134,9 @@
 							</div>
 						</h:column>
 					</h:dataTable>
-					 <h:panelGroup id="mensagemDeRegistros" rendered="#{empty tarefasManagedBean.tarefas}">
-				           <h:outputText value="Não há registros disponíveis." />
-				     </h:panelGroup>
+					 <h:panelGroup id="mensagemDeRegistros">
+					       <h:outputText value="Não há registros disponíveis." rendered="#{tarefasManagedBean.tarefas.size() == 0}"/>
+					 </h:panelGroup>
 				</section>
 				<section class="card">
 					<h:dataTable value="#{tarefasManagedBean.tarefasArquivadas}" var="tarefaLinha" id="tabelaTarefasArquivadas">		
@@ -171,9 +177,9 @@
 							</div>
 						</h:column>
 					</h:dataTable>
-					 <h:panelGroup id="mensagemDeRegistrosArquivados" rendered="#{empty tarefasManagedBean.tarefasArquivadas}">
-				           <h:outputText value="Não há registros disponíveis." />
-				     </h:panelGroup>
+					 <h:panelGroup id="mensagemDeRegistrosArquivados">
+					       <h:outputText value="Não há registros disponíveis."  rendered="#{tarefasManagedBean.tarefasArquivadas.size() == 0}"/>
+					 </h:panelGroup>
 				</section>
 			</div>
 			<div style="display:none;" id="mensagensDeSucesso">
@@ -232,7 +238,7 @@
 				</h:commandButton>
 				<div class="btn-arquivar" onclick="arquivarEtapa1()">Arquivar</div>
 				<h:commandButton onclick="arquivarEtapa2()" id="btn-arquivar" value="Esta é uma ação irreversível. Confirmar?" action="#{tarefasManagedBean.arquivar}">
-				  	  <f:ajax execute="@form" render="@form globalMessage tabelaTarefas totalFeitas totalTarefas finalizadasPorcentagem progresso mensagemDeRegistrosArquivados tabelaTarefasArquivadas" onevent="handleRemoveEvent"/>
+				  	  <f:ajax execute="@form" render="@form globalMessage tabelaTarefas totalFeitas totalTarefas finalizadasPorcentagem progresso mensagemDeRegistrosArquivados tabelaTarefasArquivadas mensagemDeRegistros" onevent="handleRemoveEvent"/>
 				</h:commandButton>
 				<div class="btn-excluir" onclick="excluirEtapa1()">Excluir</div>
 				<h:commandButton onclick="excluirEtapa2()" id="btn-excluir" value="Certeza? Clique aqui para confirmar." action="#{tarefasManagedBean.excluir}">
@@ -260,109 +266,11 @@
 				</h:selectOneMenu>
 				<div class="btn-excluir2" onclick="excluirArquivadaEtapa1()">Excluir</div>
 				<h:commandButton onclick="excluirArquivadaEtapa2()" id="btn-excluir2" value="Certeza? Clique aqui para confirmar." action="#{tarefasManagedBean.excluir}">
-				  	  <f:ajax execute="@form" render="@form globalMessage tabelaTarefas totalFeitas totalTarefas finalizadasPorcentagem progresso mensagemDeRegistrosArquivados tabelaTarefasArquivadas " onevent="handleRemoveEvent"/>
+				  	  <f:ajax execute="@form" render="@form globalMessage tabelaTarefas totalFeitas totalTarefas finalizadasPorcentagem progresso mensagemDeRegistrosArquivados tabelaTarefasArquivadas" onevent="handleRemoveEvent"/>
 				</h:commandButton>
 			</h:form>
 		</div>
 		
 	</h:body>
 	<!-- Remember to include jQuery :) -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-	<!-- jQuery Modal -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-	<script>
-		  const excluirEtapa1 = () => {
-			  $('.btn-excluir').hide();
-			  $("input[id='formTarefaAtualizar:btn-excluir']").show();
-		  }
-		  
-		  const excluirEtapa2 = () => {
-			  $('.btn-excluir').show();
-			  $("input[id='formTarefaAtualizar:btn-excluir']").hide();
-		  }
-		  
-		  const excluirArquivadaEtapa1 = () => {
-			  $('.btn-excluir2').hide();
-			  $("input[id='formTarefaArquivada:btn-excluir2']").show();
-		  }
-		  
-		  const excluirArquivadaEtapa2 = () => {
-			  $('.btn-excluir2').show();
-			  $("input[id='formTarefaArquivada:btn-excluir2']").hide();
-		  }
-		  
-		  const arquivarEtapa1 = () => {
-			  $('.btn-arquivar').hide();
-			  $("input[id='formTarefaAtualizar:btn-arquivar']").show();
-		  }
-		  
-		  const arquivarEtapa2 = () => {
-			  $('.btn-arquivar').show();
-			  $("input[id='formTarefaAtualizar:btn-arquivar']").hide();
-		  }
-		  
-		  const abrirModalDeEdicao = () => {
-			  $("#modalEdicao").modal("show");
-		  }
-		  
-		  const abrirModalArquivada = () => {
-			  $("#modalArquivada").modal("show");
-		  }
-		  
-		  $("#filtro-expand").on("click", function(){
-              $("#filtro-expand-content").animate({
-            	    height: 'toggle'
-              });
-          });
-		  
-		  const showToast = (message) => {
-	            Toastify({
-	                text: message,
-	                duration: 3000,
-	                close: true,
-	                gravity: "bottom",
-	                position: "right",
-	                backgroundColor: "#015FFA",
-	                stopOnFocus: true
-	            }).showToast();
-		  }
-		  
-		  function handleSaveEvent(data) {
-	            if (data.status === "success") {
-	            	if( $("#globalMessage li").length > 0) {
-	            		 $.modal.close();
-	            		 showToast($("#globalMessage li").text());
-	            	}
-	            }
-	       }
-		  
-		  function handleEditEvent(data) {
-	            if (data.status === "success") {
-	            	if( $("#globalMessage li").length > 0) {
-	            		 showToast($("#globalMessage li").last().text());
-	            	}
-	            }
-	       }
-		  
-		  function handleArquivartEvent(data) {
-	            if (data.status === "success") {
-	            	if( $("#globalMessage li").length > 0) {
-	            		 $.modal.close();
-	            		 showToast($("#globalMessage li").last().text());
-	            	}
-	            }
-	       }
-		  
-		  function handleRemoveEvent(data) {
-	            if (data.status === "success") {
-	            	if( $("#globalMessage li").length > 0) {
-	            		 $.modal.close();
-	            		 showToast($("#globalMessage li").last().text());
-	            	}
-	            }
-	       }
-	</script>
 </html>

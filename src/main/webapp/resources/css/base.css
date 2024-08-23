@@ -77,3 +77,7 @@ input[type="submit"], .btn-excluir, .btn-arquivar, .btn-excluir2  {
 	margin-bottom: 0.3em;
 	display: block;
 }
+
+.hidden {
+	display: none;
+}

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -21,6 +22,8 @@ public class TarefasManagedBean {
 	private Tarefa tarefa = new Tarefa();
 	private Tarefa tarefaEdit = new Tarefa();
 	private DAOGeneric<Tarefa> daoTarefa = new DAOGeneric<Tarefa>();
+	private List<Tarefa> tarefas;
+	private List<Tarefa> tarefasArquivadas;
 	
 	//Filtros
 	private String tituloFiltro = "";
@@ -31,11 +34,17 @@ public class TarefasManagedBean {
 	private LocalDateTime dataLimiteFimFiltro = null;
 	private String codigoFiltro = "";
 	
+	@PostConstruct
+    public void init() {
+        carregarTarefas();
+        carregarTarefasArquivadas();
+    }
+	
 	public String cadastrar() {
 		tarefa.setResponsavel(LoginUtil.getUsuario());
 		daoTarefa.salvar(this.tarefa);
 		this.tarefa = new Tarefa();
-		
+		carregarTarefas();
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Tarefa salva com sucesso!", null));
 		return "";
@@ -43,6 +52,7 @@ public class TarefasManagedBean {
 	
 	public String atualizar() {
 		daoTarefa.atualizar(this.tarefaEdit);
+		carregarTarefas();
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Tarefa atualizada com sucesso!", null));
 		return "";
@@ -51,6 +61,8 @@ public class TarefasManagedBean {
 	public String excluir() {
 		daoTarefa.deletar(this.tarefaEdit);
 		this.tarefaEdit = new Tarefa();
+		carregarTarefas();
+		carregarTarefasArquivadas();
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Tarefa excluída com sucesso!", null));
 		return "";
@@ -61,6 +73,8 @@ public class TarefasManagedBean {
 		this.tarefaEdit.setArquivada(true);
 		daoTarefa.atualizar(this.tarefaEdit);
 		this.tarefaEdit = new Tarefa();
+		carregarTarefasArquivadas();
+		carregarTarefas();
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Tarefa arquivada com sucesso!", null));
 		return "";
@@ -78,6 +92,7 @@ public class TarefasManagedBean {
 		this.statusFiltro = null;
 		this.dataLimiteInicioFiltro = null;
 		this.dataLimiteFimFiltro = null;
+		carregarTarefas();
 	}
 	
 	public String filtrar() {
@@ -89,10 +104,11 @@ public class TarefasManagedBean {
 		this.tarefaEdit.setStatus(Status.FINALIZADA);
 		daoTarefa.atualizar(this.tarefaEdit);
 		this.tarefaEdit = new Tarefa();
+		carregarTarefas();
 		return "";
 	}
 	
-	public List<Tarefa> getTarefas() {
+	public void carregarTarefas() {
 		List<Tarefa> listaTarefas = new ArrayList<Tarefa>();
 		listaTarefas.addAll(getTarefasEmAndamentoOrdenadas());
 		listaTarefas.addAll(getTarefasFinalizadasOrdenadas());
@@ -126,19 +142,35 @@ public class TarefasManagedBean {
 		
 		listaTarefas.removeIf(t -> t.isArquivada());
 		
-        return listaTarefas;
+        this.tarefas = listaTarefas;
 	}
 	
-	public List<Tarefa> getTarefasArquivadas() {
-		List<Tarefa> listaTarefas = new ArrayList<Tarefa>();
-		listaTarefas.addAll(getTarefasEmAndamentoOrdenadas());
+	   // Getters e Setters
+    public List<Tarefa> getTarefas() {
+        return tarefas;
+    }
+
+    public void setTarefas(List<Tarefa> tarefas) {
+        this.tarefas = tarefas;
+    }
+    
+    public void carregarTarefasArquivadas() {
+    	List<Tarefa> listaTarefas = new ArrayList<Tarefa>();
 		listaTarefas.addAll(getTarefasFinalizadasOrdenadas());
 		
 		listaTarefas.removeIf(t -> !t.isArquivada());
-		
-        return listaTarefas;
+        this.tarefasArquivadas = listaTarefas;
+    	  
+    }
+	
+	public List<Tarefa> getTarefasArquivadas() {
+        return tarefasArquivadas;
 	}
 	
+	public void setTarefasArquivadas(List<Tarefa> tarefasArquivadas) {
+		this.tarefasArquivadas = tarefasArquivadas;
+	}
+
 	private boolean estaNoIntervalo(LocalDateTime dataHora) {
         // Verifica se dateTimeToCheck está entre start e end (inclusive)
         return (dataHora.isEqual(this.dataLimiteInicioFiltro) || dataHora.isAfter(this.dataLimiteInicioFiltro)) &&
