@@ -122,7 +122,7 @@
 							<f:facet name="header">-</f:facet>
 							<div class="container-btn-acoes">
 								<h:commandButton onclick="abrirModalDeEdicao()" id="btn-selecTarefa" value="↗" action="#{tarefasManagedBean.selecionarTarefa(tarefaLinha)}">
-	            					<f:ajax render="formTarefaAtualizar" />
+	            					<f:ajax render="formTarefaAtualizar"/>
 								</h:commandButton>
 								<h:panelGroup rendered="#{tarefaLinha.statusDescricao == 'Executando'}">
 									<h:form>	
@@ -172,7 +172,7 @@
 							<f:facet name="header">-</f:facet>
 							<div class="container-btn-acoes">
 								<h:commandButton onclick="abrirModalArquivada()" id="btn-selecTarefa" value="↗" action="#{tarefasManagedBean.selecionarTarefa(tarefaLinha)}">
-	            					<f:ajax render="formTarefaArquivada" />
+	            					<f:ajax render="formTarefaArquivada"/>
 								</h:commandButton>
 							</div>
 						</h:column>
