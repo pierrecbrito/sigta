@@ -101,6 +101,8 @@ public class TarefasManagedBean {
 			listaTarefas.removeIf(t -> !t.getPrioridade().equals(prioridadeFiltro));
 		}
 		
+		System.out.println(dataLimiteInicioFiltro);
+		System.out.println(dataLimiteFimFiltro);
 		if(dataLimiteInicioFiltro != null || dataLimiteFimFiltro != null) {
 			listaTarefas.removeIf(t -> !estaNoIntervalo(t.getDataLimite()));
 		}

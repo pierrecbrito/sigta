@@ -135,11 +135,11 @@ table[id="formTarefa:tabelaTarefas"] tbody tr:hover {
  	margin: 4px;
 }
 
-.container-input-filtro:nth-child(0) {
+.container-input-filtro:nth-child(1) {
 	margin-left: 0;
 }
 
-.container-input-filtro:nth-child(5) {
+.container-input-filtro:nth-child(7) {
 	margin-right: 0;
 }
 
