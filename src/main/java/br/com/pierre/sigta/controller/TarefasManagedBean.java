@@ -56,6 +56,16 @@ public class TarefasManagedBean {
 		return "";
 	}
 	
+	public String arquivar() {
+		this.tarefaEdit.setStatus(Status.FINALIZADA);
+		this.tarefaEdit.setArquivada(true);
+		daoTarefa.atualizar(this.tarefaEdit);
+		this.tarefaEdit = new Tarefa();
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Tarefa arquivada com sucesso!", null));
+		return "";
+	}
+	
 	public void selecionarTarefa(Tarefa tarefa) {
 		this.tarefaEdit = tarefa;
 	}
@@ -113,6 +123,18 @@ public class TarefasManagedBean {
 		if(statusFiltro != null) {
 			listaTarefas.removeIf(t -> !t.getStatus().equals(statusFiltro));
 		}
+		
+		listaTarefas.removeIf(t -> t.isArquivada());
+		
+        return listaTarefas;
+	}
+	
+	public List<Tarefa> getTarefasArquivadas() {
+		List<Tarefa> listaTarefas = new ArrayList<Tarefa>();
+		listaTarefas.addAll(getTarefasEmAndamentoOrdenadas());
+		listaTarefas.addAll(getTarefasFinalizadasOrdenadas());
+		
+		listaTarefas.removeIf(t -> !t.isArquivada());
 		
         return listaTarefas;
 	}

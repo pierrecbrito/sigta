@@ -5,33 +5,33 @@
 	text-align: right;
 }
 
-#tabelaTarefas {
+#tabelaTarefas, #tabelaTarefasArquivadas {
 	width: 100%;
 	position: relative;
 	border-radius: 5px;
 	margin-top: 1em;
 }
 
-#tabelaTarefas thead {
+#tabelaTarefas thead, #tabelaTarefasArquivadas thead {
 	background-color: #F0F0F0;
 	padding: 1.5em;
 }
 
-#tabelaTarefas thead th {
+#tabelaTarefas thead th, #tabelaTarefasArquivadas thead th {
 	padding: 1em;
 }
 
-#tabelaTarefas td {
+#tabelaTarefas td, #tabelaTarefasArquivadas td {
 	text-align: center;
 	padding: 1.5em;
 }
 
-#tabelaTarefas tbody tr {
+#tabelaTarefas tbody tr, #tabelaTarefasArquivadas tbody tr {
 	cursor: pointer;
 	transition: background-color 0.3s;
 }
 
-input[id="formTarefaAtualizar:btn-excluir"], .btn-excluir {
+input[id="formTarefaAtualizar:btn-excluir"], .btn-excluir, #btn-arquivar {
  	background-color: #FF0000;
 	color: #FFFFFF;
 	border: none;
@@ -53,7 +53,7 @@ input[id="formUser:btn-sair"] {
 	width: auto;
 }
 
-input[id="formTarefaAtualizar:btn-excluir"] {
+input[id="formTarefaAtualizar:btn-excluir"], input[id="formTarefaAtualizar:btn-arquivar"], input[id="formTarefaArquivada:btn-excluir2"] {
 	display: none;
 }
 
@@ -64,12 +64,13 @@ table[id="formTarefa:tabelaTarefas"] tbody tr:hover {
 .container-btn-acoes {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: center;
 }
 
 .container-btn-acoes input {
 	margin-right: 5px;
 	margin-top: 0;
+	width: fit-content;
 }
 
 #status-tarefas {

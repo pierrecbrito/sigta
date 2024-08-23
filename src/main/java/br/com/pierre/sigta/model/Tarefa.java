@@ -22,8 +22,8 @@ import org.hibernate.annotations.CreationTimestamp;
 @Entity
 @NamedQueries({
 			   @NamedQuery(name = "Tarefas.de", query = "select t from Tarefa t where t.responsavel = :responsavel"),
-			   @NamedQuery(name = "QuantidadeTarefas.de", query = "SELECT COUNT(t) FROM Tarefa t WHERE t.responsavel = :responsavel"),
-			   @NamedQuery(name = "QuantidadeTarefasFinalizadas.de", query = "SELECT COUNT(t) FROM Tarefa t WHERE t.responsavel = :responsavel AND t.status = :statusFinalizada"),
+			   @NamedQuery(name = "QuantidadeTarefas.de", query = "SELECT COUNT(t) FROM Tarefa t WHERE t.responsavel = :responsavel AND t.arquivada = false"),
+			   @NamedQuery(name = "QuantidadeTarefasFinalizadas.de", query = "SELECT COUNT(t) FROM Tarefa t WHERE t.responsavel = :responsavel AND t.status = :statusFinalizada AND t.arquivada = false"),
 			   @NamedQuery(name = "TarefasEmAndamentoOrdenadas.de", query = "SELECT t FROM Tarefa t WHERE t.status = :statusEmAndamento AND t.responsavel = :responsavel  ORDER BY t.dataLimite ASC "),
 			   @NamedQuery(name = "TarefasFinalizadasOrdenadas.de", query = "SELECT t FROM Tarefa t WHERE t.status = :statusFinalizada AND t.responsavel = :responsavel  ORDER BY t.dataLimite ASC ")
 			   })
@@ -51,6 +51,8 @@ public class Tarefa {
     private LocalDateTime criadoEm;
     @Column(nullable = false, unique = true)
     private String codigo;
+    @Column(nullable = false)
+    private boolean arquivada = false;
  
     private String gerarCodigoUnico() {
         String base = String.format("%s%s%d%s",
@@ -143,11 +145,19 @@ public class Tarefa {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
+	
+	 public boolean isArquivada() {
+	     return arquivada;
+	 }
+
+     public void setArquivada(boolean arquivada) {
+        this.arquivada = arquivada;
+     }
 
 	@Override
 	public String toString() {
 		return "Tarefa [id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", responsavel=" + responsavel
-				+ ", prioridade=" + prioridade + ", status=" + status + ", dataLimite=" + dataLimite + ", criadoEm=" + criadoEm + "]";
+				+ ", prioridade=" + prioridade + ", status=" + status + ", dataLimite=" + dataLimite + ", criadoEm=" + criadoEm + ", estaArquivada = " + this.arquivada + "]";
 	}
 	
 }

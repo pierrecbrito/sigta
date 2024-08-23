@@ -50,7 +50,7 @@ ul {
 	
 }
 
-input[type="submit"], .btn, .btn-excluir, #btn-sair  {
+input[type="submit"], .btn, .btn-excluir, #btn-sair, .btn-arquivar, .btn-excluir2  {
 	background-color: #015FFA;
 	color: white;
 	border: none;
@@ -62,8 +62,9 @@ input[type="submit"], .btn, .btn-excluir, #btn-sair  {
 	padding: 9px 12px;
 }
 
-input[type="submit"], .btn-excluir {
+input[type="submit"], .btn-excluir, .btn-arquivar, .btn-excluir2  {
 	margin-top: 1em;
+	text-align: center;
 }
 
 #formUser {
