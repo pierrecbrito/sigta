@@ -49,16 +49,20 @@
 							    		<h:outputLabel styleClass="label" for="tituloFiltro" value="Título:"/>
 										<h:inputText id="tituloFiltro" value="#{tarefasManagedBean.tituloFiltro}" a:placeholder="Título"/>
 									</div>
-									<div class="container-input-filtro">
-							    		<h:outputLabel styleClass="label" for="dataLimiteFiltro" value="Data limite:"/>
-							    		<h:inputText id="dataLimiteFiltro" a:type="datetime-local" value="#{tarefasManagedBean.dataLimiteFiltro}" converter="localDateTimeConverter"  a:placeholder="Até dd/MM/yyyy HH:mm"/>
-							    	</div>
 							    	<div class="container-input-filtro">
 							    		<h:outputLabel styleClass="label" for="prioridadeFiltro" value="Prioridade:"/>
 							    		<h:selectOneMenu id="prioridadeFiltro" value="#{tarefasManagedBean.prioridadeFiltro}" >
 										    <f:selectItem itemLabel="Selecione" itemValue="" />
 										    <f:selectItems value="#{tarefasManagedBean.niveisPrioridade}" />
 										</h:selectOneMenu>
+							    	</div>
+							    	<div class="container-input-filtro">
+							    		<h:outputLabel styleClass="label" for="dataLimiteInicioFiltro" value="Data limite (Início):"/>
+							    		<h:inputText id="dataLimiteInicioFiltro" a:type="datetime-local" value="#{tarefasManagedBean.dataLimiteInicioFiltro}" converter="localDateTimeConverter"  a:placeholder="Até dd/MM/yyyy HH:mm"/>
+							    	</div>
+							    	<div class="container-input-filtro">
+							    		<h:outputLabel styleClass="label" for="dataLimiteFimFiltro" value="Data limite (Fim):"/>
+							    		<h:inputText id="dataLimiteFimFiltro" a:type="datetime-local" value="#{tarefasManagedBean.dataLimiteFimFiltro}" converter="localDateTimeConverter"  a:placeholder="Até dd/MM/yyyy HH:mm"/>
 							    	</div>
 									<div class="container-input-filtro">
 							    		<h:outputLabel styleClass="label" for="statusFiltro" value="Status:"/>
@@ -128,7 +132,7 @@
 				</section>
 			</div>
 			<div style="display:none;" id="mensagensDeSucesso">
-				<h:messages id="globalMessage"/>
+				<h:messages id="globalMessage" globalOnly="true"/>
 			</div>
 		</main>
 		<div id="modalAdd" class="modal">

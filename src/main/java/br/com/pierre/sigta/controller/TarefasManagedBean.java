@@ -27,7 +27,8 @@ public class TarefasManagedBean {
 	private String descricaoFiltro = "";
 	private Prioridade prioridadeFiltro = null;
 	private Status statusFiltro = null;
-	private LocalDateTime dataLimiteFiltro = LocalDateTime.now();
+	private LocalDateTime dataLimiteInicioFiltro = null;
+	private LocalDateTime dataLimiteFimFiltro = null;
 	private String codigoFiltro = "";
 	
 	public String cadastrar() {
@@ -36,14 +37,14 @@ public class TarefasManagedBean {
 		this.tarefa = new Tarefa();
 		
 		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage("globalMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Tarefa salva com sucesso!", null));
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Tarefa salva com sucesso!", null));
 		return "";
 	}
 	
 	public String atualizar() {
 		daoTarefa.atualizar(this.tarefaEdit);
 		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage("globalMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Tarefa atualizada com sucesso!", null));
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Tarefa atualizada com sucesso!", null));
 		return "";
 	}
 	
@@ -51,7 +52,7 @@ public class TarefasManagedBean {
 		daoTarefa.deletar(this.tarefaEdit);
 		this.tarefaEdit = new Tarefa();
 		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage("globalMessage", new FacesMessage(FacesMessage.SEVERITY_INFO, "Tarefa excluída com sucesso!", null));
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Tarefa excluída com sucesso!", null));
 		return "";
 	}
 	
@@ -64,7 +65,7 @@ public class TarefasManagedBean {
 		this.descricaoFiltro = "";
 		this.prioridadeFiltro = null;
 		this.statusFiltro = null;
-		this.dataLimiteFiltro = null;
+		this.dataLimiteInicioFiltro = null;
 	}
 	
 	public String filtrar() {
@@ -100,12 +101,22 @@ public class TarefasManagedBean {
 			listaTarefas.removeIf(t -> !t.getPrioridade().equals(prioridadeFiltro));
 		}
 		
+		if(dataLimiteInicioFiltro != null || dataLimiteFimFiltro != null) {
+			listaTarefas.removeIf(t -> !estaNoIntervalo(t.getDataLimite()));
+		}
+		
 		if(statusFiltro != null) {
 			listaTarefas.removeIf(t -> !t.getStatus().equals(statusFiltro));
 		}
 		
         return listaTarefas;
 	}
+	
+	private boolean estaNoIntervalo(LocalDateTime dataHora) {
+        // Verifica se dateTimeToCheck está entre start e end (inclusive)
+        return (dataHora.isEqual(this.dataLimiteInicioFiltro) || dataHora.isAfter(this.dataLimiteInicioFiltro)) &&
+               (dataHora.isEqual(this.dataLimiteFimFiltro) || dataHora.isBefore(this.dataLimiteFimFiltro));
+    }
 
 	public List<Tarefa> getTarefasEmAndamentoOrdenadas() {
 		List<Tarefa> listaTarefas = daoTarefa.getEntityManager().createNamedQuery("TarefasEmAndamentoOrdenadas.de")
@@ -218,13 +229,21 @@ public class TarefasManagedBean {
 	public void setStatusFiltro(Status statusFiltro) {
 		this.statusFiltro = statusFiltro;
 	}
-
-	public LocalDateTime getDataLimiteFiltro() {
-		return dataLimiteFiltro;
+	
+	public LocalDateTime getDataLimiteInicioFiltro() {
+		return dataLimiteInicioFiltro;
 	}
 
-	public void setDataLimiteFiltro(LocalDateTime dataLimiteFiltro) {
-		this.dataLimiteFiltro = dataLimiteFiltro;
+	public void setDataLimiteInicioFiltro(LocalDateTime dataLimiteInicioFiltro) {
+		this.dataLimiteInicioFiltro = dataLimiteInicioFiltro;
+	}
+
+	public LocalDateTime getDataLimiteFimFiltro() {
+		return dataLimiteFimFiltro;
+	}
+
+	public void setDataLimiteFimFiltro(LocalDateTime dataLimiteFimFiltro) {
+		this.dataLimiteFimFiltro = dataLimiteFimFiltro;
 	}
 
 	public String getCodigoFiltro() {

@@ -130,7 +130,7 @@ table[id="formTarefa:tabelaTarefas"] tbody tr:hover {
 }
 
 .container-input-filtro {
-	width: 19%;
+	width: 32.2%;
  	display: inline-block;
  	margin: 4px;
 }
@@ -139,7 +139,7 @@ table[id="formTarefa:tabelaTarefas"] tbody tr:hover {
 	margin-left: 0;
 }
 
-.container-input-filtro:nth-child(4) {
+.container-input-filtro:nth-child(5) {
 	margin-right: 0;
 }
 
