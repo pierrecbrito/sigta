@@ -3,7 +3,7 @@
 #container {
 	display: flex;
 	flex-direction: row;
-	justify-content: end;
+	justify-content: center;
 }
 
 #content {
@@ -12,7 +12,7 @@
 	position: relative;
 	right: 0;
 	min-height: 100vh;
-	background-color: #F0F0F0;
+	
 	padding: 1.5em;
 	padding-top: 0.5em;
 }

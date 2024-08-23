@@ -112,19 +112,19 @@ table[id="formTarefa:tabelaTarefas"] tbody tr:hover {
 	font-weight: bold;
 }
 
-#filtros {
+#filtros, #filtros2 {
 	margin-top: 1em;
 }
 
-#filtro-expand {
+#filtro-expand, #filtro-expand2 {
 	cursor: pointer;
 }
 
-#filtro-expand:hover {
+#filtro-expand:hover, #filtro-expand2:hover {
 	text-decoration: underline;
 }
 
-#filtro-expand-content {
+#filtro-expand-content, #filtro-expand-content-arquivadas {
 	display: none;
 	width: 100%;
 	text-align: left !important;
@@ -153,7 +153,7 @@ table[id="formTarefa:tabelaTarefas"] tbody tr:hover {
  	
  }
  
- #formFiltro textarea {
+ #formFiltro textarea,  #formFiltroArquivados textarea  {
  	width: 100%;
  }
  
@@ -168,16 +168,49 @@ table[id="formTarefa:tabelaTarefas"] tbody tr:hover {
 	margin-bottom: 1.2em;
  }
  
- input[id="formFiltro:btn-filtrar"], input[id="formFiltro:btn-limpar-filtros"] {
+ input[id="formFiltro:btn-filtrar"],  input[id="formFiltroArquivados:btn-filtrar2"], input[id="formFiltro:btn-limpar-filtros"], input[id="formFiltroArquivados:btn-limpar-filtros2"] {
  	width: fit-content;
  }
  
- input[id="formFiltro:btn-limpar-filtros"] {
+ input[id="formFiltro:btn-limpar-filtros"], input[id="formFiltroArquivados:btn-limpar-filtros2"] {
  	margin-left: 0.5em;
     background-color: #F1F1F1;
     border: 1px solid #F1F1F1 !important;
     color: #000;
  }
+ 
+#tabelaTarefas tbody, #tabelaTarefasArquivadas tbody {
+    display: block;
+    max-height: 475px; /* Altura máxima do tbody */
+    overflow-y: auto; /* Permitir rolagem vertical */
+}
+
+/* Estilo para garantir que as colunas se alinhem corretamente */
+#tabelaTarefas thead, #tabelaTarefas tbody tr, #tabelaTarefasArquivadas thead, #tabelaTarefasArquivadas tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed; /* Fixar a largura das colunas */
+}
+
+#tabelaTarefas tbody::-webkit-scrollbar, #tabelaTarefasArquivadas tbody::-webkit-scrollbar {
+    width: 12px; /* Largura da barra de rolagem */
+}
+
+#tabelaTarefas tbody::-webkit-scrollbar-track, 	#tabelaTarefasArquivadas tbody::-webkit {
+    background: #f1f1f1; /* Cor do trilho da barra de rolagem */
+}
+
+#tabelaTarefas tbody::-webkit-scrollbar-thumb, #tabelaTarefasArquivadas tbody::-webkit-scrollbar-thumb {
+    background-color: #007bff; /* Cor da barra de rolagem */
+    border-radius: 10px; /* Bordas arredondadas */
+    border: 3px solid #f1f1f1; /* Espaço ao redor da barra de rolagem */
+}
+
+/* Estilos para personalizar a barra de rolagem no Firefox */
+#tabelaTarefas tbody, #tabelaTarefasArquivadas tbody {
+    scrollbar-width: thin; /* Largura da barra de rolagem */
+    scrollbar-color: #007bff #f1f1f1; /* Cor da barra de rolagem e do trilho */
+}
 
 
 

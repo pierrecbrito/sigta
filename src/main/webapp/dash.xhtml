@@ -44,7 +44,7 @@
 					</div>
 					<div class="container-direita">
 						<div id="filtros">
-							<span id="filtro-expand" class="">Filtros</span>🔽
+							<span id="filtro-expand" onclick="toggleFiltro()">Filtros</span>🔽
 							<div id="filtro-expand-content">
 							    <h:form id="formFiltro">
 							    	<div class="container-input-filtro">
@@ -79,11 +79,11 @@
 							    	</div>
 									<h:outputLabel styleClass="label" for="descricaoFiltro" value="Descrição:"/>
 									<h:inputTextarea id="descricaoFiltro" value="#{tarefasManagedBean.descricaoFiltro}" a:placeholder="Descrição" rows="2"/>
-									<h:commandButton value="Buscar" action="#{tarefasManagedBean.getTarefas}" id="btn-filtrar">
-										 <f:ajax execute="@form" render="@all"/>
+									<h:commandButton value="Buscar" action="#{tarefasManagedBean.filtrar}" id="btn-filtrar">
+										 <f:ajax execute="@form" render="tabelaTarefas mensagemDeRegistros"/>
 									</h:commandButton>
 									<h:commandButton value="Limpar" action="#{tarefasManagedBean.limparFiltros}" id="btn-limpar-filtros">
-										 <f:ajax render="@form tabelaTarefas"/>
+										 <f:ajax render="@form tabelaTarefas mensagemDeRegistros"/>
 									</h:commandButton>
 							    </h:form>
 	                        </div>
@@ -139,6 +139,53 @@
 					 </h:panelGroup>
 				</section>
 				<section class="card">
+					<div class="container-direita">
+						<div id="filtros2">
+							<span id="filtro-expand2" onclick="toggleFiltroArquivadas()">Filtros</span>🔽
+							<div id="filtro-expand-content-arquivadas">
+							    <h:form id="formFiltroArquivados">
+							    	<div class="container-input-filtro">
+								    	<h:outputLabel styleClass="label" for="codigoFiltroArquivadas" value="Código:"/>
+								    	<h:inputText id="codigoFiltroArquivadas" value="#{tarefasManagedBean.codigoFiltroArquivadas}" a:placeholder="Código"/>
+							    	</div>
+							    	<div class="container-input-filtro">
+							    		<h:outputLabel styleClass="label" for="tituloFiltroArquivadas" value="Título:"/>
+										<h:inputText id="tituloFiltroArquivadas" value="#{tarefasManagedBean.tituloFiltroArquivadas}" a:placeholder="Título"/>
+									</div>
+							    	<div class="container-input-filtro">
+							    		<h:outputLabel styleClass="label" for="prioridadeFiltroArquivadas" value="Prioridade:"/>
+							    		<h:selectOneMenu id="prioridadeFiltroArquivadas" value="#{tarefasManagedBean.prioridadeFiltroArquivadas}" >
+										    <f:selectItem itemLabel="Selecione" itemValue="" />
+										    <f:selectItems value="#{tarefasManagedBean.niveisPrioridade}" />
+										</h:selectOneMenu>
+							    	</div>
+							    	<div class="container-input-filtro">
+							    		<h:outputLabel styleClass="label" for="statusFiltroArquivadas" value="Status:"/>
+							    		<h:selectOneMenu id="statusFiltroArquivadas" value="#{tarefasManagedBean.statusFiltroArquivadas}" >
+										    <f:selectItem itemLabel="Selecione" itemValue="" />
+										    <f:selectItems value="#{tarefasManagedBean.tiposStatus}" />
+										</h:selectOneMenu>
+							    	</div>
+							    	<div class="container-input-filtro">
+							    		<h:outputLabel styleClass="label" for="dataLimiteInicioFiltroArquivadas" value="Data limite (Início):"/>
+							    		<h:inputText id="dataLimiteInicioFiltroArquivadas" a:type="datetime-local" value="#{tarefasManagedBean.dataLimiteInicioFiltroArquivadas}" converter="localDateTimeConverter"  a:placeholder="Até dd/MM/yyyy HH:mm"/>
+							    	</div>
+							    	<div class="container-input-filtro">
+							    		<h:outputLabel styleClass="label" for="dataLimiteFimFiltroArquivadas" value="Data limite (Fim):"/>
+							    		<h:inputText id="dataLimiteFimFiltroArquivadas" a:type="datetime-local" value="#{tarefasManagedBean.dataLimiteFimFiltroArquivadas}" converter="localDateTimeConverter"  a:placeholder="Até dd/MM/yyyy HH:mm"/>
+							    	</div>
+									<h:outputLabel styleClass="label" for="descricaoFiltroArquivadas" value="Descrição:"/>
+									<h:inputTextarea id="descricaoFiltroArquivadas" value="#{tarefasManagedBean.descricaoFiltroArquivadas}" a:placeholder="Descrição" rows="2"/>
+									<h:commandButton value="Buscar" action="#{tarefasManagedBean.filtrarArquivadas}" id="btn-filtrar2">
+										 <f:ajax execute="@form" render="tabelaTarefasArquivadas mensagemDeRegistrosArquivados"/>
+									</h:commandButton>
+									<h:commandButton value="Limpar" action="#{tarefasManagedBean.limparFiltrosArquivadas}" id="btn-limpar-filtros2">
+										 <f:ajax render="@form tabelaTarefasArquivadas mensagemDeRegistrosArquivados"/>
+									</h:commandButton>
+							    </h:form>
+	                        </div>
+						</div>
+					</div>
 					<h:dataTable value="#{tarefasManagedBean.tarefasArquivadas}" var="tarefaLinha" id="tabelaTarefasArquivadas">		
 						<h:column>
 							<f:facet name="header">Código</f:facet>

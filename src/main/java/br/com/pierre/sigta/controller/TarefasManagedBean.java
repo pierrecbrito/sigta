@@ -33,6 +33,14 @@ public class TarefasManagedBean {
 	private LocalDateTime dataLimiteInicioFiltro = null;
 	private LocalDateTime dataLimiteFimFiltro = null;
 	private String codigoFiltro = "";
+	//Filtros Arquivada
+	private String tituloFiltroArquivadas = "";
+	private String descricaoFiltroArquivadas  = "";
+	private Prioridade prioridadeFiltroArquivadas  = null;
+	private Status statusFiltroArquivadas  = null;
+	private LocalDateTime dataLimiteInicioFiltroArquivadas  = null;
+	private LocalDateTime dataLimiteFimFiltroArquivadas  = null;
+	private String codigoFiltroArquivadas  = "";
 	
 	@PostConstruct
     public void init() {
@@ -95,8 +103,25 @@ public class TarefasManagedBean {
 		carregarTarefas();
 	}
 	
+	public void limparFiltrosArquivadas() {
+		this.codigoFiltroArquivadas = "";
+		this.tituloFiltroArquivadas = "";
+		this.descricaoFiltroArquivadas = "";
+		this.prioridadeFiltroArquivadas = null;
+		this.statusFiltroArquivadas = null;
+		this.dataLimiteInicioFiltroArquivadas = null;
+		this.dataLimiteFimFiltroArquivadas = null;
+		carregarTarefasArquivadas();
+	}
+	
+	public String filtrarArquivadas() {
+		carregarTarefasArquivadas();
+		return "";
+	}
+	
 	public String filtrar() {
-		return "dash";
+		carregarTarefas();
+		return "";
 	}
 	
 	public String concluirTarefa(Tarefa tarefa) {
@@ -158,7 +183,31 @@ public class TarefasManagedBean {
     	List<Tarefa> listaTarefas = new ArrayList<Tarefa>();
 		listaTarefas.addAll(getTarefasFinalizadasOrdenadas());
 		
+		if (codigoFiltroArquivadas != null && !codigoFiltroArquivadas.isEmpty()) {
+			this.codigoFiltroArquivadas = this.codigoFiltroArquivadas.trim();
+			listaTarefas.removeIf(t -> !t.getCodigo().toLowerCase().contains(codigoFiltroArquivadas.toLowerCase()));
+		}
+		
+		if (tituloFiltroArquivadas != null && !tituloFiltroArquivadas.isEmpty()) {
+			this.tituloFiltroArquivadas = this.tituloFiltroArquivadas.trim();
+			listaTarefas.removeIf(t -> !t.getTitulo().toLowerCase().contains(tituloFiltroArquivadas.toLowerCase()));
+		}
+		
+		if (descricaoFiltroArquivadas != null && !descricaoFiltroArquivadas.isEmpty()) {
+			this.descricaoFiltroArquivadas = this.descricaoFiltroArquivadas.trim();
+			listaTarefas.removeIf(t -> !t.getDescricao().toLowerCase().contains(descricaoFiltroArquivadas.toLowerCase()));
+		}
+		
+		if (prioridadeFiltroArquivadas != null) {
+			listaTarefas.removeIf(t -> !t.getPrioridade().equals(prioridadeFiltroArquivadas));
+		}
+		
+		if (dataLimiteInicioFiltroArquivadas != null || dataLimiteFimFiltroArquivadas != null) {
+			listaTarefas.removeIf(t -> !estaNoIntervalo(t.getDataLimite()));
+		}
+		
 		listaTarefas.removeIf(t -> !t.isArquivada());
+		
         this.tarefasArquivadas = listaTarefas;
     	  
     }
@@ -312,5 +361,63 @@ public class TarefasManagedBean {
 	public void setCodigoFiltro(String codigoFiltro) {
 		this.codigoFiltro = codigoFiltro;
 	}
+
+	public String getTituloFiltroArquivadas() {
+		return tituloFiltroArquivadas;
+	}
+
+	public void setTituloFiltroArquivadas(String tituloFiltroArquivadas) {
+		this.tituloFiltroArquivadas = tituloFiltroArquivadas;
+	}
+
+	public String getDescricaoFiltroArquivadas() {
+		return descricaoFiltroArquivadas;
+	}
+
+	public void setDescricaoFiltroArquivadas(String descricaoFiltroArquivadas) {
+		this.descricaoFiltroArquivadas = descricaoFiltroArquivadas;
+	}
+
+	public Prioridade getPrioridadeFiltroArquivadas() {
+		return prioridadeFiltroArquivadas;
+	}
+
+	public void setPrioridadeFiltroArquivadas(Prioridade prioridadeFiltroArquivadas) {
+		this.prioridadeFiltroArquivadas = prioridadeFiltroArquivadas;
+	}
+
+	public Status getStatusFiltroArquivadas() {
+		return statusFiltroArquivadas;
+	}
+
+	public void setStatusFiltroArquivadas(Status statusFiltroArquivadas) {
+		this.statusFiltroArquivadas = statusFiltroArquivadas;
+	}
+
+	public LocalDateTime getDataLimiteInicioFiltroArquivadas() {
+		return dataLimiteInicioFiltroArquivadas;
+	}
+
+	public void setDataLimiteInicioFiltroArquivadas(LocalDateTime dataLimiteInicioFiltroArquivadas) {
+		this.dataLimiteInicioFiltroArquivadas = dataLimiteInicioFiltroArquivadas;
+	}
+
+	public LocalDateTime getDataLimiteFimFiltroArquivadas() {
+		return dataLimiteFimFiltroArquivadas;
+	}
+
+	public void setDataLimiteFimFiltroArquivadas(LocalDateTime dataLimiteFimFiltroArquivadas) {
+		this.dataLimiteFimFiltroArquivadas = dataLimiteFimFiltroArquivadas;
+	}
+
+	public String getCodigoFiltroArquivadas() {
+		return codigoFiltroArquivadas;
+	}
+
+	public void setCodigoFiltroArquivadas(String codigoFiltroArquivadas) {
+		this.codigoFiltroArquivadas = codigoFiltroArquivadas;
+	}
+	
+	
 	
 }

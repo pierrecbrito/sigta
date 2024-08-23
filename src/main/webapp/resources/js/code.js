@@ -42,11 +42,17 @@ const excluirEtapa1 = () => {
 	  $("#modalArquivada").modal("show");
   }
   
-  $("#filtro-expand").on("click", function(){
+const toggleFiltro = () => {
       $("#filtro-expand-content").animate({
     	    height: 'toggle'
       });
-  });
+ };
+ 
+ const toggleFiltroArquivadas = () => {
+       $("#filtro-expand-content-arquivadas").animate({
+     	    height: 'toggle'
+       });
+};
   
   const showToast = (message) => {
         Toastify({
