@@ -61,11 +61,13 @@ public class TarefasManagedBean {
 	}
 	
 	public void limparFiltros() {
+		this.codigoFiltro = "";
 		this.tituloFiltro = "";
 		this.descricaoFiltro = "";
 		this.prioridadeFiltro = null;
 		this.statusFiltro = null;
 		this.dataLimiteInicioFiltro = null;
+		this.dataLimiteFimFiltro = null;
 	}
 	
 	public String filtrar() {
@@ -86,14 +88,17 @@ public class TarefasManagedBean {
 		listaTarefas.addAll(getTarefasFinalizadasOrdenadas());
 		
 		if (codigoFiltro != null && !codigoFiltro.isEmpty()) {
+			this.codigoFiltro = this.codigoFiltro.trim();
 			listaTarefas.removeIf(t -> !t.getCodigo().toLowerCase().contains(codigoFiltro.toLowerCase()));
 		}
 		
 		if(tituloFiltro != null && !tituloFiltro.isEmpty()) {
+			this.tituloFiltro = this.tituloFiltro.trim();
 			listaTarefas.removeIf(t -> !t.getTitulo().toLowerCase().contains(tituloFiltro.toLowerCase()));
 		}
 		
 		if(descricaoFiltro != null && !descricaoFiltro.isEmpty()) { 
+			this.descricaoFiltro = this.descricaoFiltro.trim();
 			listaTarefas.removeIf(t -> !t.getDescricao().toLowerCase().contains(descricaoFiltro.toLowerCase()));
 		}
 		
@@ -101,8 +106,6 @@ public class TarefasManagedBean {
 			listaTarefas.removeIf(t -> !t.getPrioridade().equals(prioridadeFiltro));
 		}
 		
-		System.out.println(dataLimiteInicioFiltro);
-		System.out.println(dataLimiteFimFiltro);
 		if(dataLimiteInicioFiltro != null || dataLimiteFimFiltro != null) {
 			listaTarefas.removeIf(t -> !estaNoIntervalo(t.getDataLimite()));
 		}

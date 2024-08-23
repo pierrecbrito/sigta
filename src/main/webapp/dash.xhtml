@@ -57,6 +57,13 @@
 										</h:selectOneMenu>
 							    	</div>
 							    	<div class="container-input-filtro">
+							    		<h:outputLabel styleClass="label" for="statusFiltro" value="Status:"/>
+							    		<h:selectOneMenu id="statusFiltro" value="#{tarefasManagedBean.statusFiltro}" >
+										    <f:selectItem itemLabel="Selecione" itemValue="" />
+										    <f:selectItems value="#{tarefasManagedBean.tiposStatus}" />
+										</h:selectOneMenu>
+							    	</div>
+							    	<div class="container-input-filtro">
 							    		<h:outputLabel styleClass="label" for="dataLimiteInicioFiltro" value="Data limite (Início):"/>
 							    		<h:inputText id="dataLimiteInicioFiltro" a:type="datetime-local" value="#{tarefasManagedBean.dataLimiteInicioFiltro}" converter="localDateTimeConverter"  a:placeholder="Até dd/MM/yyyy HH:mm"/>
 							    	</div>
@@ -64,18 +71,13 @@
 							    		<h:outputLabel styleClass="label" for="dataLimiteFimFiltro" value="Data limite (Fim):"/>
 							    		<h:inputText id="dataLimiteFimFiltro" a:type="datetime-local" value="#{tarefasManagedBean.dataLimiteFimFiltro}" converter="localDateTimeConverter"  a:placeholder="Até dd/MM/yyyy HH:mm"/>
 							    	</div>
-									<div class="container-input-filtro">
-							    		<h:outputLabel styleClass="label" for="statusFiltro" value="Status:"/>
-							    		<h:selectOneMenu id="statusFiltro" value="#{tarefasManagedBean.statusFiltro}" >
-										    <f:selectItem itemLabel="Selecione" itemValue="" />
-										    <f:selectItems value="#{tarefasManagedBean.tiposStatus}" />
-										</h:selectOneMenu>
-							    	</div>
-									
 									<h:outputLabel styleClass="label" for="descricaoFiltro" value="Descrição:"/>
 									<h:inputTextarea id="descricaoFiltro" value="#{tarefasManagedBean.descricaoFiltro}" a:placeholder="Descrição" rows="2"/>
-									<h:commandButton value="Buscar" action="#{tarefasManagedBean.getTarefas}">
+									<h:commandButton value="Buscar" action="#{tarefasManagedBean.getTarefas}" id="btn-filtrar">
 										 <f:ajax execute="@form" render="@form tabelaTarefas"/>
+									</h:commandButton>
+									<h:commandButton value="Limpar" action="#{tarefasManagedBean.limparFiltros}" id="btn-limpar-filtros">
+										 <f:ajax render="@form tabelaTarefas"/>
 									</h:commandButton>
 							    </h:form>
 	                        </div>

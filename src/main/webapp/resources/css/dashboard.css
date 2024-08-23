@@ -166,6 +166,18 @@ table[id="formTarefa:tabelaTarefas"] tbody tr:hover {
 	margin-top: 0.5em;
 	margin-bottom: 1.2em;
  }
+ 
+ input[id="formFiltro:btn-filtrar"], input[id="formFiltro:btn-limpar-filtros"] {
+ 	width: fit-content;
+ }
+ 
+ input[id="formFiltro:btn-limpar-filtros"] {
+ 	margin-left: 0.5em;
+    background-color: #F1F1F1;
+    border: 1px solid #F1F1F1 !important;
+    color: #000;
+ }
+
 
 
     
