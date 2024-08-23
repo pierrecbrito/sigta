@@ -27,8 +27,8 @@
 				<section class="card">
 					<div id="status-tarefas">
 						<div class="texto-mutado" id="barra-status">
-							<h:outputText value="#{tarefasManagedBean.quantTarefasFinalizadas}"/>/<h:outputText value="#{tarefasManagedBean.quantTarefasTotal}"/>
-							 (<h:outputText value="#{tarefasManagedBean.porcentagemTarefasFinalizadas}">
+							<h:outputText value="#{tarefasManagedBean.quantTarefasFinalizadas}" id="totalFeitas"/>/<h:outputText value="#{tarefasManagedBean.quantTarefasTotal}" id="totalTarefas"/>
+							 (<h:outputText value="#{tarefasManagedBean.porcentagemTarefasFinalizadas}" id="finalizadasPorcentagem">
 							 	<f:convertNumber type="number" groupingUsed="true" minFractionDigits="1" pattern="#0.0"/>
 							 </h:outputText>%)
 						</div>
@@ -71,6 +71,7 @@
 									<h:outputLabel styleClass="label" for="descricaoFiltro" value="Descrição:"/>
 									<h:inputTextarea id="descricaoFiltro" value="#{tarefasManagedBean.descricaoFiltro}" a:placeholder="Descrição" rows="2"/>
 									<h:commandButton value="Buscar" action="#{tarefasManagedBean.getTarefas}">
+										 <f:ajax execute="@form" render="@form tabelaTarefas"/>
 									</h:commandButton>
 							    </h:form>
 	                        </div>
@@ -113,7 +114,7 @@
 								</h:commandButton>
 								<h:panelGroup rendered="#{tarefaLinha.statusDescricao == 'Executando'}">
 						        	<h:commandButton id="btn-concluirTarefa" value="✔" action="#{tarefasManagedBean.concluirTarefa(tarefaLinha)}">
-							            	<f:ajax render="tabelaTarefas" />
+							            	<f:ajax render="tabelaTarefas totalFeitas totalTarefas finalizadasPorcentagem progresso" />
 									</h:commandButton>
 							    </h:panelGroup>
 							</div>
@@ -147,7 +148,7 @@
 				    <f:selectItems value="#{tarefasManagedBean.niveisPrioridade}" />
 				</h:selectOneMenu>
 				<h:commandButton value="Cadastrar" action="#{tarefasManagedBean.cadastrar}">
-					 <f:ajax execute="@form" render="@form globalMessage tabelaTarefas"  onevent="handleSaveEvent"/>
+					 <f:ajax execute="@form" render="@form globalMessage tabelaTarefas totalFeitas totalTarefas finalizadasPorcentagem progresso"  onevent="handleSaveEvent"/>
 				</h:commandButton>
 			</h:form>
 		</div>
@@ -175,11 +176,11 @@
 				    <f:selectItems value="#{tarefasManagedBean.tiposStatus}" />
 				</h:selectOneMenu>
 				<h:commandButton value="Atualizar" action="#{tarefasManagedBean.atualizar}">
-					  <f:ajax execute="@form" render="@form globalMessage tabelaTarefas" onevent="handleEditEvent"/>
+					  <f:ajax execute="@form" render="@form globalMessage tabelaTarefas totalFeitas totalTarefas finalizadasPorcentagem progresso" onevent="handleEditEvent"/>
 				</h:commandButton>
 				<div class="btn-excluir" onclick="excluirEtapa1()">Excluir</div>
 				<h:commandButton onclick="excluirEtapa2()" id="btn-excluir" value="Certeza? Clique aqui para confirmar." action="#{tarefasManagedBean.excluir}">
-				  	  <f:ajax execute="@form" render="@form globalMessage tabelaTarefas" onevent="handleRemoveEvent"/>
+				  	  <f:ajax execute="@form" render="@form globalMessage tabelaTarefas totalFeitas totalTarefas finalizadasPorcentagem progresso" onevent="handleRemoveEvent"/>
 				</h:commandButton>
 			</h:form>
 		</div>
