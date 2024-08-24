@@ -14,9 +14,12 @@
 				<h2>SignUp</h2>
 				<p class="texto-mutado">Cadastre seus dados para ter acesso aos recursos</p>
 				<h:messages id="mensagens"/> 
-				<h:inputText value="#{signupManaged.usuario.nome}" a:placeholder="Nome" required="true" requiredMessage="É necessário digitar o nome."/>
-				<h:inputText value="#{signupManaged.usuario.email}" a:placeholder="E-mail" required="true" requiredMessage="É necessário digitar o e-mail."/>
-				<h:inputSecret value="#{signupManaged.usuario.senha}" a:placeholder="Senha" required="true" requiredMessage="É necessário digitar a senha."/>
+				<h:outputLabel styleClass="label" for="signup-nome" value="Nome:"/>
+				<h:inputText id="signup-nome" value="#{signupManaged.usuario.nome}" a:placeholder="Nome" required="true" requiredMessage="É necessário digitar o nome."/>
+				<h:outputLabel styleClass="label" for="signup-email" value="E-mail:"/>
+				<h:inputText id="signup-email" value="#{signupManaged.usuario.email}" a:placeholder="E-mail" required="true" requiredMessage="É necessário digitar o e-mail."/>
+				<h:outputLabel styleClass="label" for="signup-senha" value="Senha:"/>
+				<h:inputSecret id="signup-senha" value="#{signupManaged.usuario.senha}" a:placeholder="Senha" required="true" requiredMessage="É necessário digitar a senha."/>
 				<h:commandButton value="Cadastrar" action="#{signupManaged.cadastrar}"/>
 			</h:form>
 			<h:outputLink id="copyright" value="https://pierrebrito.dev.br/" target="_blank">&copy; Pierre Brito 2024</h:outputLink>

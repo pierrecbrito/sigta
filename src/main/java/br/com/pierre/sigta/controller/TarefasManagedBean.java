@@ -211,7 +211,7 @@ public class TarefasManagedBean {
 		}
 		
 		if (dataLimiteInicioFiltroArquivadas != null || dataLimiteFimFiltroArquivadas != null) {
-			listaTarefas.removeIf(t -> !estaNoIntervalo(t.getDataLimite()));
+			listaTarefas.removeIf(t -> !estaNoIntervaloArquivadas(t.getDataLimite()));
 		}
 		
 		listaTarefas.removeIf(t -> t.getStatus() != Status.FINALIZADA);
@@ -232,6 +232,12 @@ public class TarefasManagedBean {
         // Verifica se dateTimeToCheck está entre start e end (inclusive)
         return (dataHora.isEqual(this.dataLimiteInicioFiltro) || dataHora.isAfter(this.dataLimiteInicioFiltro)) &&
                (dataHora.isEqual(this.dataLimiteFimFiltro) || dataHora.isBefore(this.dataLimiteFimFiltro));
+    }
+	
+	private boolean estaNoIntervaloArquivadas(LocalDateTime dataHora) {
+        // Verifica se dateTimeToCheck está entre start e end (inclusive)
+        return (dataHora.isEqual(this.dataLimiteInicioFiltroArquivadas) || dataHora.isAfter(this.dataLimiteInicioFiltroArquivadas)) &&
+               (dataHora.isEqual(this.dataLimiteFimFiltroArquivadas) || dataHora.isBefore(this.dataLimiteFimFiltroArquivadas));
     }
 
 	@SuppressWarnings("unchecked")
