@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -63,11 +64,15 @@ public class Tarefa {
     private List<Observacao> observacoes = new ArrayList<Observacao>();
  
     private String gerarCodigoUnico() {
-        String base = String.format("%s%s%d%s",
+    	Random random = new Random();
+        int numeroAleatorio = random.nextInt(10000); // Gera um número aleatório entre 0 e 9999
+        
+        String base = String.format("%s%s%d%s%d",
                 titulo,
                 descricao,
                 responsavel.getId(),
-                prioridade);
+                prioridade,
+                numeroAleatorio);
 
         int hash = Math.abs(base.hashCode());
         return String.format("%05d", hash % 100000); 
