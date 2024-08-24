@@ -1,1 +1,1 @@
-$ java -jar target/dependency/webapp-runner.jar target/*.war
+java $JAVA_OPTS -cp target/classes:target/dependency/* Main
