@@ -3,7 +3,7 @@
 # Java Class Files #
 *.class
 #Persistence
-persistence.xml
+
 # Package Files #
 *.jar
 *.war

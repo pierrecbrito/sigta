@@ -7,6 +7,8 @@
   <groupId>pierre</groupId>
   <artifactId>sigta</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+
 
   <name>sigta</name>
   <!-- FIXME change it to the project's website -->
@@ -14,11 +16,17 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <dependencies>
+	  <dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>javax.servlet-api</artifactId>
+	    <version>3.0.1</version>
+	    <scope>provided</scope>
+	</dependency>
 	 <!-- JUnit 5 -->
     <dependency>
         <groupId>org.junit.jupiter</groupId>
@@ -30,14 +38,6 @@
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
         <version>5.8.1</version>
-        <scope>test</scope>
-    </dependency>
-
-    <!-- Mockito -->
-    <dependency>
-        <groupId>org.mockito</groupId>
-        <artifactId>mockito-core</artifactId>
-        <version>3.12.4</version>
         <scope>test</scope>
     </dependency>
 
@@ -96,6 +96,7 @@
 	    <artifactId>jbcrypt</artifactId>
 	    <version>0.4</version>
 	</dependency>
+	
   </dependencies>
 
   <build>
@@ -110,10 +111,6 @@
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <version>3.0.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
@@ -140,6 +137,49 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+            <configuration>
+                <source>${maven.compiler.source}</source>
+                <target>${maven.compiler.target}</target>
+            </configuration>
+        </plugin>
+
+        <!-- Plugin do Maven para empacotar o projeto como um arquivo WAR -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>3.2.3</version>
+            <configuration>
+                <failOnMissingWebXml>false</failOnMissingWebXml>
+            </configuration>
+        </plugin>
+         <plugin>
+		      <groupId>org.apache.maven.plugins</groupId>
+		      <artifactId>maven-dependency-plugin</artifactId>
+		      <version>3.3.0</version>
+		      <executions>
+		          <execution>
+		              <phase>package</phase>
+		              <goals>
+		                  <goal>copy</goal>
+		              </goals>
+		              <configuration>
+		                  <artifactItems>
+		                      <artifactItem>
+							  		<groupId>com.github.jsimone</groupId>
+                                    <artifactId>webapp-runner</artifactId>
+                                    <version>9.0.30.0</version>
+                                    <destFileName>webapp-runner.jar</destFileName>
+							  </artifactItem>
+		                  </artifactItems>
+		                  <outputDirectory>${project.build.directory}/dependency</outputDirectory>
+		              </configuration>
+		          </execution>
+		      </executions>
+		  </plugin>
       </plugins>
     </pluginManagement>
   </build>
