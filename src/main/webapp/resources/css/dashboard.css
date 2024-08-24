@@ -135,6 +135,10 @@ table[id="formTarefa:tabelaTarefas"] tbody tr:hover {
 	text-align: left !important;
 }
 
+ #filtro-expand-content-arquivadas .container-input-filtro {
+ 	width: 19%;
+ }
+
 .container-input-filtro {
 	width: 32.2%;
  	display: inline-block;
@@ -154,10 +158,6 @@ table[id="formTarefa:tabelaTarefas"] tbody tr:hover {
 }
 
 
-#formFiltro input, #formFiltro select {
- 	
- }
- 
  #formFiltro textarea,  #formFiltroArquivados textarea  {
  	width: 100%;
  }

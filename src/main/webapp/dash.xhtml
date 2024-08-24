@@ -161,13 +161,6 @@
 										</h:selectOneMenu>
 							    	</div>
 							    	<div class="container-input-filtro">
-							    		<h:outputLabel styleClass="label" for="statusFiltroArquivadas" value="Status:"/>
-							    		<h:selectOneMenu id="statusFiltroArquivadas" value="#{tarefasManagedBean.statusFiltroArquivadas}" >
-										    <f:selectItem itemLabel="Selecione" itemValue="" />
-										    <f:selectItems value="#{tarefasManagedBean.tiposStatus}" />
-										</h:selectOneMenu>
-							    	</div>
-							    	<div class="container-input-filtro">
 							    		<h:outputLabel styleClass="label" for="dataLimiteInicioFiltroArquivadas" value="Data limite (Início):"/>
 							    		<h:inputText id="dataLimiteInicioFiltroArquivadas" a:type="datetime-local" value="#{tarefasManagedBean.dataLimiteInicioFiltroArquivadas}" converter="localDateTimeConverter"  a:placeholder="Até dd/MM/yyyy HH:mm"/>
 							    	</div>
