@@ -27,43 +27,43 @@ public class TarefaTest {
 	}
 	
 	@Test
-	public void testTitulo() {
+	public void testGetSetTitulo() {
 		String titulo = "Estudar JUnit5";
 		tarefa.setTitulo(titulo);
-        assertEquals(titulo, tarefa.getTitulo());
+        assertEquals(titulo, tarefa.getTitulo(), "O título da tarefa deve ser igual ao valor definido");
 	}
 	
 	@Test
-	public void testDescricao() {
+	public void testGetSetDescricao() {
 		String descricao = "Estudar JUnit5 com foco em testes unitários";
         tarefa.setDescricao(descricao);
-        assertEquals(descricao, tarefa.getDescricao());
+        assertEquals(descricao, tarefa.getDescricao(), "A descrição da tarefa deve ser igual ao valor definido");
 	}
 	
 	@Test
-	public void testDataLimite() {
+	public void testGetSetDataLimite() {
 		LocalDateTime dataLimite = LocalDateTime.of(2023,12,31,23,59);
 		tarefa.setDataLimite(dataLimite);
-		assertEquals(dataLimite, tarefa.getDataLimite());
+		assertEquals(dataLimite, tarefa.getDataLimite(), "A data limite da tarefa deve ser igual ao valor definido");
 	}
 	
 	@Test
-	public void testPrioridade() {
+	public void testGetSetPrioridade() {
 		tarefa.setPrioridade(Prioridade.ALTA);
-		assertEquals(Prioridade.ALTA, tarefa.getPrioridade());
+		assertEquals(Prioridade.ALTA, tarefa.getPrioridade(), "A prioridade da tarefa deve ser igual ao valor definido");
 	}
 	
 	@Test
-	public void testStatus() {
+	public void testGetSetStatus() {
 		tarefa.setStatus(Status.FINALIZADA);
-		assertEquals(Status.FINALIZADA, tarefa.getStatus());
+		assertEquals(Status.FINALIZADA, tarefa.getStatus(), "O status da tarefa deve ser igual ao valor definido");
 	}
 	
 	@Test
-	public void testCodigo() {
+	public void testGetSetCodigo() {
 		String codigo = "56849";
 		tarefa.setCodigo(codigo);
-		assertEquals(codigo, tarefa.getCodigo());
+		assertEquals(codigo, tarefa.getCodigo(), "O código da tarefa deve ser igual ao valor definido");
 	}
 	
 	@Test
