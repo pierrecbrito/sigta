@@ -23,6 +23,17 @@
 	padding: 1em;
 	box-shadow: 0 3px 7px 0 rgba(0, 0, 0, .13), 0 1px 2px 0 rgba(0, 0, 0, .11);
 	margin-top: 1em;
+	position: relative;
+}
+
+.titulo-card {
+	background-color: #015FFA;
+	color: #FFFFFF;
+	position: absolute;
+	top: 0;
+	left: 1em;
+	padding: 0.5em 1em;
+	border-radius: 0 0 5px 5px;
 }
 
 .mensagensErro {

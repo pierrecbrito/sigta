@@ -11,6 +11,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import br.com.pierre.sigta.dao.DAOGeneric;
+import br.com.pierre.sigta.model.Observacao;
 import br.com.pierre.sigta.model.Prioridade;
 import br.com.pierre.sigta.model.Status;
 import br.com.pierre.sigta.model.Tarefa;
@@ -24,6 +25,7 @@ public class TarefasManagedBean {
 	private DAOGeneric<Tarefa> daoTarefa = new DAOGeneric<Tarefa>();
 	private List<Tarefa> tarefas;
 	private List<Tarefa> tarefasArquivadas;
+	private String novaObservacao = "";
 	
 	//Filtros
 	private String tituloFiltro = "";
@@ -50,7 +52,10 @@ public class TarefasManagedBean {
 	
 	public String cadastrar() {
 		tarefa.setResponsavel(LoginUtil.getUsuario());
+		tarefa.adicionarObservacao("A tarefa foi criada.");
+		
 		daoTarefa.salvar(this.tarefa);
+		
 		this.tarefa = new Tarefa();
 		carregarTarefas();
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -114,6 +119,16 @@ public class TarefasManagedBean {
 		carregarTarefasArquivadas();
 	}
 	
+	public String adicionarObservacao() {
+		Observacao observacao = new Observacao();
+		observacao.setConteudo(novaObservacao);
+		observacao.setTarefa(tarefaEdit);
+		tarefaEdit.getObservacoes().add(observacao);
+		daoTarefa.atualizar(tarefaEdit);
+		this.novaObservacao = "";
+		return "";
+	}
+	
 	public String filtrarArquivadas() {
 		carregarTarefasArquivadas();
 		return "";
@@ -138,7 +153,7 @@ public class TarefasManagedBean {
 		listaTarefas.addAll(getTarefasEmAndamentoOrdenadas());
 		listaTarefas.addAll(getTarefasFinalizadasOrdenadas());
 		
-		if (codigoFiltro != null && !codigoFiltro.isEmpty()) {
+		if(codigoFiltro != null && !codigoFiltro.isEmpty()) {
 			this.codigoFiltro = this.codigoFiltro.trim();
 			listaTarefas.removeIf(t -> !t.getCodigo().toLowerCase().contains(codigoFiltro.toLowerCase()));
 		}
@@ -417,7 +432,14 @@ public class TarefasManagedBean {
 	public void setCodigoFiltroArquivadas(String codigoFiltroArquivadas) {
 		this.codigoFiltroArquivadas = codigoFiltroArquivadas;
 	}
-	
+
+	public String getNovaObservacao() {
+		return novaObservacao;
+	}
+
+	public void setNovaObservacao(String novaObservacao) {
+		this.novaObservacao = novaObservacao;
+	}
 	
 	
 }

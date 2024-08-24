@@ -53,6 +53,11 @@ input[id="formUser:btn-sair"] {
 	width: auto;
 }
 
+.btn-excluir2, input[id="formTarefaArquivada:btn-excluir2"] {
+	background-color: #FF0000 !important;
+	border: 2px solid #FF0000!important;
+}
+
 input[id="formTarefaAtualizar:btn-excluir"], input[id="formTarefaAtualizar:btn-arquivar"], input[id="formTarefaArquivada:btn-excluir2"] {
 	display: none;
 }
@@ -196,7 +201,7 @@ table[id="formTarefa:tabelaTarefas"] tbody tr:hover {
     width: 12px; /* Largura da barra de rolagem */
 }
 
-#tabelaTarefas tbody::-webkit-scrollbar-track, 	#tabelaTarefasArquivadas tbody::-webkit {
+#tabelaTarefas tbody::-webkit-scrollbar-track, 	#tabelaTarefasArquivadas tbody::-webkit-scrollbar-track {
     background: #f1f1f1; /* Cor do trilho da barra de rolagem */
 }
 
@@ -213,5 +218,127 @@ table[id="formTarefa:tabelaTarefas"] tbody tr:hover {
 }
 
 
+#modalEdicao, #modalArquivada {
+	max-width: 800px;
+}
+
+.container-modal-form {
+	max-width: 350px;
+	width: 100%;
+}
+
+.container-modal-observacoes {
+	margin-left: 1em;
+	padding-left: 1em;
+	border-left: 1px solid #666;
+	flex: 1;
+}
+
+.container-modal {
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+}
+
+#listaObervacoesEdit, #listaObervacoesEdit tr, #listaObervacoesEdit td, #listaObervacoesArquivadas tr, #listaObervacoesArquivadas td, #listaObervacoesArquivadas {
+	width: 100%;
+}
+
+input[id="formObservacoes:btnAdicionarObservacao"] {
+	width: fit-content;
+	margin-top: 0.4em;
+}
+
+#listaObervacoesEdit td, #listaObervacoesArquivadas td {
+	background-color: #E8F2FE;
+	border-radius: 5px;
+	padding: 0.7em;
+	font-size: 0.9em;
+	margin-top: 0.8em;
+	display: block;
+}
+
+.momento-observacao {
+	padding: 0;
+	margin: 0;
+	margin-top: 0.4em;
+	font-size: 0.7em;
+	text-align: right;
+}
+
+ #listaObervacoesEdit tbody {
+    display: block;
+    max-height: 447px; /* Altura máxima do tbody */
+    overflow-y: auto; /* Permitir rolagem vertical */
+    padding-right: 0.5em;
+}
+
+/* Estilo para garantir que as colunas se alinhem corretamente */
+#listaObervacoesEdit thead, #listaObervacoesEdit tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed; /* Fixar a largura das colunas */
+}
+
+/* Estilos para personalizar a barra de rolagem no Chrome, Edge e Safari */
+#listaObervacoesEdit tbody::-webkit-scrollbar {
+    width: 12px; /* Largura da barra de rolagem */
+}
+
+#listaObervacoesEdit tbody::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Cor do trilho da barra de rolagem */
+}
+
+#listaObervacoesEdit tbody::-webkit-scrollbar-thumbb {
+    background-color: #007bff; /* Cor da barra de rolagem */
+    border-radius: 10px; /* Bordas arredondadas da barra de rolagem */
+    border: 3px solid #f1f1f1; /* Espaço ao redor da barra de rolagem */
+}
+
+/* Estilos para personalizar a barra de rolagem no Firefox */
+#listaObervacoesEdit tbody {
+    scrollbar-width: thin; /* Largura da barra de rolagem */
+    scrollbar-color: #007bff #f1f1f1; /* Cor da barra de rolagem e do trilho */
+}
+
+.container-modal-observacoes .mensagensErro {
+	margin-bottom: 0.5em;
+}
+
+ /* Estilo para adicionar scroll ao tbody */
+ #listaObervacoesArquivadas tbody {
+     display: block;
+     max-height: 485px; /* Altura máxima do tbody */
+     overflow-y: auto; /* Permitir rolagem vertical */
+ }
+
+ /* Estilo para garantir que as colunas se alinhem corretamente */
+ #listaObervacoesArquivadas thead, #listaObervacoesArquivadas tbody tr {
+     display: table;
+     width: 100%;
+     table-layout: fixed; /* Fixar a largura das colunas */
+     padding-right: 0.5em;
+ }
+
+ /* Estilos para personalizar a barra de rolagem no Chrome, Edge e Safari */
+ #listaObervacoesArquivadas tbody::-webkit-scrollbar {
+     width: 12px; /* Largura da barra de rolagem */
+ }
+
+ #listaObervacoesArquivadas tbody::-webkit-scrollbar-track {
+     background: #f1f1f1; /* Cor do trilho da barra de rolagem */
+ }
+
+ #listaObervacoesArquivadas tbody::-webkit-scrollbar-thumb {
+     background-color: #007bff; /* Cor da barra de rolagem */
+     border-radius: 10px; /* Bordas arredondadas da barra de rolagem */
+     border: 3px solid #f1f1f1; /* Espaço ao redor da barra de rolagem */
+ }
+
+ /* Estilos para personalizar a barra de rolagem no Firefox */
+ #listaObervacoesArquivadas tbody {
+     scrollbar-width: thin; /* Largura da barra de rolagem */
+     scrollbar-color: #007bff #f1f1f1; /* Cor da barra de rolagem e do trilho */
+ }
 
     

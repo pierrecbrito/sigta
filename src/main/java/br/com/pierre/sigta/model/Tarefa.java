@@ -2,8 +2,12 @@ package br.com.pierre.sigta.model;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -53,6 +58,8 @@ public class Tarefa {
     private String codigo;
     @Column(nullable = false)
     private boolean arquivada = false;
+    @OneToMany(mappedBy = "tarefa", targetEntity = Observacao.class, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Observacao> observacoes = new ArrayList<Observacao>();
  
     private String gerarCodigoUnico() {
         String base = String.format("%s%s%d%s",
@@ -123,6 +130,15 @@ public class Tarefa {
 	}
 
 	public void setStatus(Status status) {
+		
+		if(status != this.status && status == Status.FINALIZADA) {
+			adicionarObservacao("A tarefa foi finalizada.");
+		}
+		
+		if(status != this.status && status == Status.EXECUTANDO) {
+			adicionarObservacao("A tarefa foi reaberta.");
+		}
+		
 		this.status = status;
 	}
 	
@@ -151,8 +167,42 @@ public class Tarefa {
 	 }
 
      public void setArquivada(boolean arquivada) {
+    	 
+    	if(arquivada) {
+			adicionarObservacao("A tarefa foi arquivada.");
+ 		}
+    	 
         this.arquivada = arquivada;
-     }
+    }
+    
+    public void adicionarObservacao(String conteudo) {
+    	Observacao observacao = new Observacao();
+		observacao.setConteudo(conteudo);
+		observacao.setTarefa(this);
+		this.getObservacoes().add(observacao);
+    }
+
+	public LocalDateTime getCriadoEm() {
+		return criadoEm;
+	}
+
+	public void setCriadoEm(LocalDateTime criadoEm) {
+		this.criadoEm = criadoEm;
+	}
+
+	public List<Observacao> getObservacoes() {
+		return observacoes;
+	}
+	
+	public List<Observacao> getObservacoesOrdenadasDesc() {
+		ArrayList<Observacao> copiaObservacoes = new ArrayList<Observacao>(this.observacoes);
+		Collections.reverse(copiaObservacoes);
+		return copiaObservacoes;
+	}
+
+	public void setObservacoes(List<Observacao> observacoes) {
+		this.observacoes = observacoes;
+	}
 
 	@Override
 	public String toString() {

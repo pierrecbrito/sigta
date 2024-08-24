@@ -31,6 +31,7 @@
 				</div>
 				
 				<section class="card">
+					<span class="titulo-card">Tarefas</span>
 					<div id="status-tarefas">
 						<div class="texto-mutado" id="barra-status">
 							<h:outputText value="#{tarefasManagedBean.quantTarefasFinalizadas}" id="totalFeitas"/>/<h:outputText value="#{tarefasManagedBean.quantTarefasTotal}" id="totalTarefas"/>
@@ -122,7 +123,7 @@
 							<f:facet name="header">-</f:facet>
 							<div class="container-btn-acoes">
 								<h:commandButton onclick="abrirModalDeEdicao()" id="btn-selecTarefa" value="↗" action="#{tarefasManagedBean.selecionarTarefa(tarefaLinha)}">
-	            					<f:ajax render="formTarefaAtualizar"/>
+	            					<f:ajax render="formTarefaAtualizar listaObervacoesEdit formObservacoes"/>
 								</h:commandButton>
 								<h:panelGroup rendered="#{tarefaLinha.statusDescricao == 'Executando'}">
 									<h:form>	
@@ -139,6 +140,7 @@
 					 </h:panelGroup>
 				</section>
 				<section class="card">
+					<span class="titulo-card">Tarefas arquivadas</span>
 					<div class="container-direita">
 						<div id="filtros2">
 							<span id="filtro-expand2" onclick="toggleFiltroArquivadas()">Filtros</span>🔽
@@ -177,7 +179,7 @@
 									<h:outputLabel styleClass="label" for="descricaoFiltroArquivadas" value="Descrição:"/>
 									<h:inputTextarea id="descricaoFiltroArquivadas" value="#{tarefasManagedBean.descricaoFiltroArquivadas}" a:placeholder="Descrição" rows="2"/>
 									<h:commandButton value="Buscar" action="#{tarefasManagedBean.filtrarArquivadas}" id="btn-filtrar2">
-										 <f:ajax execute="@form" render="tabelaTarefasArquivadas mensagemDeRegistrosArquivados"/>
+										 <f:ajax execute="@form" render="tabelaTarefasArquivadas mensagemDeRegistrosArquivados listaObervacoesEdit"/>
 									</h:commandButton>
 									<h:commandButton value="Limpar" action="#{tarefasManagedBean.limparFiltrosArquivadas}" id="btn-limpar-filtros2">
 										 <f:ajax render="@form tabelaTarefasArquivadas mensagemDeRegistrosArquivados"/>
@@ -219,7 +221,7 @@
 							<f:facet name="header">-</f:facet>
 							<div class="container-btn-acoes">
 								<h:commandButton onclick="abrirModalArquivada()" id="btn-selecTarefa" value="↗" action="#{tarefasManagedBean.selecionarTarefa(tarefaLinha)}">
-	            					<f:ajax render="formTarefaArquivada"/>
+	            					<f:ajax render="formTarefaArquivada listaObervacoesArquivadas"/>
 								</h:commandButton>
 							</div>
 						</h:column>
@@ -245,7 +247,7 @@
 				<h:outputLabel styleClass="label" for="tarefa-titulo-add" value="Título:"/>
 				<h:inputText id="tarefa-titulo-add" value="#{tarefasManagedBean.tarefa.titulo}" a:placeholder="Título" required="true" requiredMessage="É necessário digitar o nome."/>
 				<h:outputLabel styleClass="label" for="tarefa-descricao-add" value="Descrição:"/>
-				<h:inputTextarea id="tarefa-descricao-add" value="#{tarefasManagedBean.tarefa.descricao}" a:placeholder="Descrição" required="true" requiredMessage="É necessário digitar a descrição" rows="4"/>
+				<h:inputTextarea id="tarefa-descricao-add" value="#{tarefasManagedBean.tarefa.descricao}" a:placeholder="Descrição" required="true" requiredMessage="É necessário digitar a descrição" rows="2"/>
 				<h:outputLabel styleClass="label" for="tarefa-dataLimite-add" value="Data limite:"/>
 				<h:inputText id="tarefa-dataLimite-add" a:type="datetime-local" value="#{tarefasManagedBean.tarefa.dataLimite}" converter="localDateTimeConverter"/>
 				<h:outputLabel styleClass="label" for="tarefa-prioridade-add" value="Prioridade:"/>
@@ -258,66 +260,109 @@
 			</h:form>
 		</div>
 		<div id="modalEdicao" class="modal">
-		 	<h:form id="formTarefaAtualizar">
-				<h2>Editar tarefa</h2>
-				<p class="texto-mutado subtexto-modal">Tenha certeza dos dados que você coloca aqui.</p>
-				<h:message id="mensagensEditarTitutlo" styleClass="mensagensErro" for="tarefa-titulo-edit"/> 
-				<h:message id="mensagensEditarDescricao" styleClass="mensagensErro" for="tarefa-descricao-edit"/> 
-				<h:message id="mensagensEditarDataLimite" styleClass="mensagensErro" for="tarefa-dataLimite-edit"/> 
-				<h:message id="mensagensEditarPrioridade" styleClass="mensagensErro" for="tarefa-prioridade-edit"/> 
-				<h:message id="mensagensEditarStatus" styleClass="mensagensErro" for="tarefa-status-edit"/> 
-				<h:outputLabel styleClass="label" for="tarefa-titulo-edit" value="Título:"/>
-				<h:inputText id="tarefa-titulo-edit" value="#{tarefasManagedBean.tarefaEdit.titulo}" a:placeholder="Título" required="true" requiredMessage="É necessário digitar o nome."/>
-				<h:outputLabel styleClass="label" for="tarefa-descricao-edit" value="Descrição:"/>
-				<h:inputTextarea id="tarefa-descricao-edit" value="#{tarefasManagedBean.tarefaEdit.descricao}" a:placeholder="Descrição" required="true" requiredMessage="É necessário digitar a descrição" rows="4"/>
-				<h:outputLabel styleClass="label" for="tarefa-dataLimite-edit" value="Data limite:"/>
-				<h:inputText a:type="datetime-local" id="tarefa-dataLimite-edit" value="#{tarefasManagedBean.tarefaEdit.dataLimite}" converter="localDateTimeConverter"  a:placeholder="Até dd/MM/yyyy HH:mm"/>
-				<h:outputLabel styleClass="label" for="tarefa-prioridade-edit" value="Prioridade:"/>
-				<h:selectOneMenu id="tarefa-prioridade-edit" value="#{tarefasManagedBean.tarefaEdit.prioridade}" >
-				    <f:selectItems value="#{tarefasManagedBean.niveisPrioridade}" />
-				</h:selectOneMenu>
-				<h:outputLabel styleClass="label" for="tarefa-status-edit" value="Status:"/>
-				<h:selectOneMenu id="tarefa-status-edit" value="#{tarefasManagedBean.tarefaEdit.status}" >
-				    <f:selectItems value="#{tarefasManagedBean.tiposStatus}" />
-				</h:selectOneMenu>
-				<h:commandButton value="Atualizar" action="#{tarefasManagedBean.atualizar}">
-					  <f:ajax execute="@form" render="@form globalMessage tabelaTarefas totalFeitas totalTarefas finalizadasPorcentagem progresso" onevent="handleEditEvent"/>
-				</h:commandButton>
-				<div class="btn-arquivar" onclick="arquivarEtapa1()">Arquivar</div>
-				<h:commandButton onclick="arquivarEtapa2()" id="btn-arquivar" value="Esta é uma ação irreversível. Confirmar?" action="#{tarefasManagedBean.arquivar}">
-				  	  <f:ajax execute="@form" render="@form globalMessage tabelaTarefas totalFeitas totalTarefas finalizadasPorcentagem progresso mensagemDeRegistrosArquivados tabelaTarefasArquivadas mensagemDeRegistros" onevent="handleRemoveEvent"/>
-				</h:commandButton>
-				<div class="btn-excluir" onclick="excluirEtapa1()">Excluir</div>
-				<h:commandButton onclick="excluirEtapa2()" id="btn-excluir" value="Certeza? Clique aqui para confirmar." action="#{tarefasManagedBean.excluir}">
-				  	  <f:ajax execute="@form" render="@form globalMessage tabelaTarefas totalFeitas totalTarefas finalizadasPorcentagem progresso mensagemDeRegistros tabelaTarefasArquivadas" onevent="handleRemoveEvent"/>
-				</h:commandButton>
-			</h:form>
+			<div class="container-modal">
+				<div class="container-modal-form">
+				 	<h:form id="formTarefaAtualizar">
+						<h2>Editar tarefa</h2>
+						<p class="texto-mutado subtexto-modal">Tenha certeza dos dados que você coloca aqui.</p>
+						<h:message id="mensagensEditarTitutlo" styleClass="mensagensErro" for="tarefa-titulo-edit"/> 
+						<h:message id="mensagensEditarDescricao" styleClass="mensagensErro" for="tarefa-descricao-edit"/> 
+						<h:message id="mensagensEditarDataLimite" styleClass="mensagensErro" for="tarefa-dataLimite-edit"/> 
+						<h:message id="mensagensEditarPrioridade" styleClass="mensagensErro" for="tarefa-prioridade-edit"/> 
+						<h:message id="mensagensEditarStatus" styleClass="mensagensErro" for="tarefa-status-edit"/> 
+						<h:outputLabel styleClass="label" for="tarefa-titulo-edit" value="Título:"/>
+						<h:inputText id="tarefa-titulo-edit" value="#{tarefasManagedBean.tarefaEdit.titulo}" a:placeholder="Título" required="true" requiredMessage="É necessário digitar o nome."/>
+						<h:outputLabel styleClass="label" for="tarefa-descricao-edit" value="Descrição:"/>
+						<h:inputTextarea id="tarefa-descricao-edit" value="#{tarefasManagedBean.tarefaEdit.descricao}" a:placeholder="Descrição" required="true" requiredMessage="É necessário digitar a descrição" rows="2"/>
+						<h:outputLabel styleClass="label" for="tarefa-dataLimite-edit" value="Data limite:"/>
+						<h:inputText a:type="datetime-local" id="tarefa-dataLimite-edit" value="#{tarefasManagedBean.tarefaEdit.dataLimite}" converter="localDateTimeConverter"  a:placeholder="Até dd/MM/yyyy HH:mm"/>
+						<h:outputLabel styleClass="label" for="tarefa-prioridade-edit" value="Prioridade:"/>
+						<h:selectOneMenu id="tarefa-prioridade-edit" value="#{tarefasManagedBean.tarefaEdit.prioridade}" >
+						    <f:selectItems value="#{tarefasManagedBean.niveisPrioridade}" />
+						</h:selectOneMenu>
+						<h:outputLabel styleClass="label" for="tarefa-status-edit" value="Status:"/>
+						<h:selectOneMenu id="tarefa-status-edit" value="#{tarefasManagedBean.tarefaEdit.status}" >
+						    <f:selectItems value="#{tarefasManagedBean.tiposStatus}" />
+						</h:selectOneMenu>
+						<h:commandButton value="Atualizar" action="#{tarefasManagedBean.atualizar}">
+							  <f:ajax execute="@form" render="@form globalMessage tabelaTarefas totalFeitas totalTarefas finalizadasPorcentagem progresso listaObervacoesEdit" onevent="handleEditEvent"/>
+						</h:commandButton>
+						<div class="btn-arquivar" onclick="arquivarEtapa1()">Arquivar</div>
+						<h:commandButton onclick="arquivarEtapa2()" id="btn-arquivar" value="Esta é uma ação irreversível. Confirmar?" action="#{tarefasManagedBean.arquivar}">
+						  	  <f:ajax execute="@form" render="@form globalMessage tabelaTarefas totalFeitas totalTarefas finalizadasPorcentagem progresso mensagemDeRegistrosArquivados tabelaTarefasArquivadas mensagemDeRegistros" onevent="handleRemoveEvent"/>
+						</h:commandButton>
+						<div class="btn-excluir" onclick="excluirEtapa1()">Excluir</div>
+						<h:commandButton onclick="excluirEtapa2()" id="btn-excluir" value="Certeza? Clique aqui para confirmar." action="#{tarefasManagedBean.excluir}">
+						  	  <f:ajax execute="@form" render="@form globalMessage tabelaTarefas totalFeitas totalTarefas finalizadasPorcentagem progresso mensagemDeRegistros tabelaTarefasArquivadas" onevent="handleRemoveEvent"/>
+						</h:commandButton>
+					</h:form>
+				</div>
+				<div class="container-modal-observacoes">
+					<h2>Observações</h2>
+					<p class="texto-mutado subtexto-modal">Registros dessa tarefa.</p>
+					<h:form id="formObservacoes">
+						<h:message id="mensagensObservacao" styleClass="mensagensErro" for="nova-observacao"/> 
+						<h:inputTextarea id="nova-observacao" value="#{tarefasManagedBean.novaObservacao}" a:placeholder="Nova obseração..." required="true" requiredMessage="É necessário digitar a observação."/>
+						<div class="container-direita">
+							<h:commandButton id="btnAdicionarObservacao" value="Adicionar" action="#{tarefasManagedBean.adicionarObservacao}">
+								<f:ajax execute="@form" render="@form listaObervacoesEdit" />
+							</h:commandButton>
+						</div>
+					</h:form>
+					<h:dataTable value="#{tarefasManagedBean.tarefaEdit.observacoesOrdenadasDesc}" var="observacaoLinha" id="listaObervacoesEdit">		
+						<h:column>
+							<h:outputText value="#{observacaoLinha.conteudo}" />
+							<div class="momento-observacao">
+								<h:outputText value="#{observacaoLinha.criadoEmComoDate}">
+									 <f:convertDateTime pattern="'às' HH:mm'h' 'de' dd 'de' MMMM 'de' YYYY" locale="pt_BR" timeZone="America/Sao_Paulo"/>
+								</h:outputText>
+							</div>
+						</h:column>	
+					</h:dataTable>
+				</div>
+			</div>
 		</div>
 		<div id="modalArquivada" class="modal">
-		 	<h:form id="formTarefaArquivada">
-				<h2>Tarefa arquivada</h2>
-				<p class="texto-mutado subtexto-modal">Tarefa arquivadas não podem ser desarquivadas.</p>
-				<h:outputLabel styleClass="label" for="tarefa-titulo-arq" value="Título:"/>
-				<h:inputText id="tarefa-titulo-arq" value="#{tarefasManagedBean.tarefaEdit.titulo}" a:placeholder="Título" required="true" requiredMessage="É necessário digitar o nome."/>
-				<h:outputLabel styleClass="label" for="tarefa-descricao-arq" value="Descrição:"/>
-				<h:inputTextarea id="tarefa-descricao-arq" value="#{tarefasManagedBean.tarefaEdit.descricao}" a:placeholder="Descrição" required="true" requiredMessage="É necessário digitar a descrição" rows="4"/>
-				<h:outputLabel styleClass="label" for="tarefa-dataLimite-arq" value="Data limite:"/>
-				<h:inputText a:type="datetime-local" id="tarefa-dataLimite-arq" value="#{tarefasManagedBean.tarefaEdit.dataLimite}" converter="localDateTimeConverter"  a:placeholder="Até dd/MM/yyyy HH:mm"/>
-				<h:outputLabel styleClass="label" for="tarefa-prioridade-arq" value="Prioridade:"/>
-				<h:selectOneMenu id="tarefa-prioridade-arq" value="#{tarefasManagedBean.tarefaEdit.prioridade}" >
-				    <f:selectItems value="#{tarefasManagedBean.niveisPrioridade}" />
-				</h:selectOneMenu>
-				<h:outputLabel styleClass="label" for="tarefa-status-edit" value="Status:"/>
-				<h:selectOneMenu id="tarefa-status-arq" value="#{tarefasManagedBean.tarefaEdit.status}" >
-				    <f:selectItems value="#{tarefasManagedBean.tiposStatus}" />
-				</h:selectOneMenu>
-				<div class="btn-excluir2" onclick="excluirArquivadaEtapa1()">Excluir</div>
-				<h:commandButton onclick="excluirArquivadaEtapa2()" id="btn-excluir2" value="Certeza? Clique aqui para confirmar." action="#{tarefasManagedBean.excluir}">
-				  	  <f:ajax execute="@form" render="@form globalMessage tabelaTarefas totalFeitas totalTarefas finalizadasPorcentagem progresso mensagemDeRegistrosArquivados tabelaTarefasArquivadas" onevent="handleRemoveEvent"/>
-				</h:commandButton>
-			</h:form>
+			<div class="container-modal">
+				<div class="container-modal-form">
+				 	<h:form id="formTarefaArquivada">
+						<h2>Tarefa arquivada</h2>
+						<p class="texto-mutado subtexto-modal">Tarefa arquivadas não podem ser desarquivadas.</p>
+						<h:outputLabel styleClass="label" for="tarefa-titulo-arq" value="Título:"/>
+						<h:inputText id="tarefa-titulo-arq" value="#{tarefasManagedBean.tarefaEdit.titulo}" disabled="true"/>
+						<h:outputLabel styleClass="label" for="tarefa-descricao-arq" value="Descrição:"/>
+						<h:inputTextarea id="tarefa-descricao-arq" value="#{tarefasManagedBean.tarefaEdit.descricao}" a:placeholder="Descrição" disabled="true"/>
+						<h:outputLabel styleClass="label" for="tarefa-dataLimite-arq" value="Data limite:"/>
+						<h:inputText a:type="datetime-local" id="tarefa-dataLimite-arq" value="#{tarefasManagedBean.tarefaEdit.dataLimite}" converter="localDateTimeConverter"  a:placeholder="Até dd/MM/yyyy HH:mm" disabled="true"/>
+						<h:outputLabel styleClass="label" for="tarefa-prioridade-arq" value="Prioridade:"/>
+						<h:selectOneMenu id="tarefa-prioridade-arq" value="#{tarefasManagedBean.tarefaEdit.prioridade}" disabled="true">
+						    <f:selectItems value="#{tarefasManagedBean.niveisPrioridade}" />
+						</h:selectOneMenu>
+						<h:outputLabel styleClass="label" for="tarefa-status-edit" value="Status:"/>
+						<h:selectOneMenu id="tarefa-status-arq" value="#{tarefasManagedBean.tarefaEdit.status}" disabled="true" >
+						    <f:selectItems value="#{tarefasManagedBean.tiposStatus}" />
+						</h:selectOneMenu>
+						<div class="btn-excluir2" onclick="excluirArquivadaEtapa1()">Excluir</div>
+						<h:commandButton onclick="excluirArquivadaEtapa2()" id="btn-excluir2" value="Certeza? Clique aqui para confirmar." action="#{tarefasManagedBean.excluir}">
+						  	  <f:ajax execute="@form" render="@form globalMessage tabelaTarefas totalFeitas totalTarefas finalizadasPorcentagem progresso mensagemDeRegistrosArquivados tabelaTarefasArquivadas" onevent="handleRemoveEvent"/>
+						</h:commandButton>
+					</h:form>
+				</div>
+				<div class="container-modal-observacoes">
+					<h2>Observações</h2>
+					<h:dataTable value="#{tarefasManagedBean.tarefaEdit.observacoesOrdenadasDesc}" var="observacaoLinha" id="listaObervacoesArquivadas">		
+						<h:column>
+							<h:outputText value="#{observacaoLinha.conteudo}" />
+							<div class="momento-observacao">
+								<h:outputText value="#{observacaoLinha.criadoEmComoDate}">
+									 <f:convertDateTime pattern="'às' HH:mm'h' 'de' dd 'de' MMMM 'de' YYYY" locale="pt_BR" timeZone="America/Sao_Paulo"/>
+								</h:outputText>
+							</div>
+						</h:column>	
+					</h:dataTable>
+				</div>
+			</div>
 		</div>
-		
 	</h:body>
 	<!-- Remember to include jQuery :) -->
 </html>
