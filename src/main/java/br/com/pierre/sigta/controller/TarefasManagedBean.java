@@ -250,7 +250,7 @@ public class TarefasManagedBean {
                (dataHora.isEqual(this.dataLimiteFimFiltro) || dataHora.isBefore(this.dataLimiteFimFiltro));
     }
 
-	
+	@SuppressWarnings("unchecked")
 	public List<Tarefa> getTarefasOrdenadas() {
         List<Tarefa> listaTarefas = daoTarefa.getEntityManager().createNamedQuery("TarefasOrdenadas.de")
                 .setParameter("responsavel", LoginUtil.getUsuario())
