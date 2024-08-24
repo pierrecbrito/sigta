@@ -73,7 +73,7 @@ public class Tarefa {
     }
     
     @PrePersist
-    private void definirCodigo() {
+    public void definirCodigo() {
         this.codigo = gerarCodigoUnico();
     }
 	
@@ -171,10 +171,12 @@ public class Tarefa {
     }
     
     public void adicionarObservacao(String conteudo) {
-    	Observacao observacao = new Observacao();
-		observacao.setConteudo(conteudo);
-		observacao.setTarefa(this);
-		this.getObservacoes().add(observacao);
+    	 if (conteudo != null && !conteudo.trim().isEmpty()) {
+	    	Observacao observacao = new Observacao();
+			observacao.setConteudo(conteudo);
+			observacao.setTarefa(this);
+			this.getObservacoes().add(observacao);
+    	 }
     }
 
 	public LocalDateTime getCriadoEm() {
