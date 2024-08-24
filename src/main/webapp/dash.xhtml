@@ -90,7 +90,7 @@
 	                        </div>
 						</div>
 					</div>
-					<h:dataTable value="#{tarefasManagedBean.tarefas}" var="tarefaLinha" id="tabelaTarefas">		
+					<h:dataTable value="#{tarefasManagedBean.tarefas}" var="tarefaLinha" id="tabelaTarefas" rowClasses="#{tarefasManagedBean.rowClasses}">		
 						<h:column>
 							<f:facet name="header">Código</f:facet>
 							<h:outputText value="#{tarefaLinha.codigo}" />
@@ -118,7 +118,6 @@
 							<f:facet name="header">Status</f:facet>
 							<h:outputText value="#{tarefaLinha.statusDescricao}" />
 						</h:column>
-						
 						<h:column>
 							<f:facet name="header">-</f:facet>
 							<div class="container-btn-acoes">

@@ -1,5 +1,6 @@
 package br.com.pierre.sigta.model;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -29,8 +30,7 @@ import org.hibernate.annotations.CreationTimestamp;
 			   @NamedQuery(name = "Tarefas.de", query = "select t from Tarefa t where t.responsavel = :responsavel"),
 			   @NamedQuery(name = "QuantidadeTarefas.de", query = "SELECT COUNT(t) FROM Tarefa t WHERE t.responsavel = :responsavel AND t.arquivada = false"),
 			   @NamedQuery(name = "QuantidadeTarefasFinalizadas.de", query = "SELECT COUNT(t) FROM Tarefa t WHERE t.responsavel = :responsavel AND t.status = :statusFinalizada AND t.arquivada = false"),
-			   @NamedQuery(name = "TarefasEmAndamentoOrdenadas.de", query = "SELECT t FROM Tarefa t WHERE t.status = :statusEmAndamento AND t.responsavel = :responsavel  ORDER BY t.dataLimite ASC "),
-			   @NamedQuery(name = "TarefasFinalizadasOrdenadas.de", query = "SELECT t FROM Tarefa t WHERE t.status = :statusFinalizada AND t.responsavel = :responsavel  ORDER BY t.dataLimite ASC ")
+			   @NamedQuery(name = "TarefasOrdenadas.de", query = "SELECT t FROM Tarefa t WHERE t.responsavel = :responsavel  ORDER BY t.status ASC, t.dataLimite ASC,  t.prioridade ASC")
 			   })
 public class Tarefa {
 	@Id
@@ -167,11 +167,6 @@ public class Tarefa {
 	 }
 
      public void setArquivada(boolean arquivada) {
-    	 
-    	if(arquivada) {
-			adicionarObservacao("A tarefa foi arquivada.");
- 		}
-    	 
         this.arquivada = arquivada;
     }
     
@@ -202,6 +197,21 @@ public class Tarefa {
 
 	public void setObservacoes(List<Observacao> observacoes) {
 		this.observacoes = observacoes;
+	}
+	
+	public String getClasseCSS() {
+		LocalDateTime agora = LocalDateTime.now();
+        Duration duracao = Duration.between(agora, dataLimite);
+
+        if (duracao.isNegative() && !this.status.equals(Status.FINALIZADA)) {
+           return "tarefaVencida";
+        } else if (duracao.toHours() < 1 && !this.status.equals(Status.FINALIZADA)) {
+        	return "tarefaProximaDeVencer";
+        } else if (this.status.equals(Status.FINALIZADA)) {
+        	return "tarefaConcluida";
+        }
+        
+		return "natural";
 	}
 
 	@Override

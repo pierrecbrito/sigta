@@ -340,5 +340,18 @@ input[id="formObservacoes:btnAdicionarObservacao"] {
      scrollbar-width: thin; /* Largura da barra de rolagem */
      scrollbar-color: #007bff #f1f1f1; /* Cor da barra de rolagem e do trilho */
  }
+ 
+.tarefaProximaDeVencer {
+     background-color: rgba(255, 255, 0, 0.4);
+}
+
+.tarefaVencida {
+     background-color: rgba(255, 0, 0, 0.4);
+}
+
+.tarefaConcluida {
+	background-color: rgba(0, 255, 0, 0.4);
+}
+
 
     

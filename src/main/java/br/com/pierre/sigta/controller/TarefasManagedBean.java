@@ -3,6 +3,7 @@ package br.com.pierre.sigta.controller;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -83,6 +84,7 @@ public class TarefasManagedBean {
 	
 	public String arquivar() {
 		this.tarefaEdit.setStatus(Status.FINALIZADA);
+		this.tarefaEdit.adicionarObservacao("A tarefa foi arquivada.");
 		this.tarefaEdit.setArquivada(true);
 		daoTarefa.atualizar(this.tarefaEdit);
 		this.tarefaEdit = new Tarefa();
@@ -139,6 +141,13 @@ public class TarefasManagedBean {
 		return "";
 	}
 	
+	// Método para retornar as classes CSS para cada linha
+    public String getRowClasses() {
+        return tarefas.stream()
+                .map(tarefa -> tarefa.getClasseCSS())
+                .collect(Collectors.joining(","));
+    }
+	
 	public String concluirTarefa(Tarefa tarefa) {
 		this.tarefaEdit = tarefa;
 		this.tarefaEdit.setStatus(Status.FINALIZADA);
@@ -150,8 +159,7 @@ public class TarefasManagedBean {
 	
 	public void carregarTarefas() {
 		List<Tarefa> listaTarefas = new ArrayList<Tarefa>();
-		listaTarefas.addAll(getTarefasEmAndamentoOrdenadas());
-		listaTarefas.addAll(getTarefasFinalizadasOrdenadas());
+		listaTarefas.addAll(getTarefasOrdenadas());
 		
 		if(codigoFiltro != null && !codigoFiltro.isEmpty()) {
 			this.codigoFiltro = this.codigoFiltro.trim();
@@ -196,7 +204,7 @@ public class TarefasManagedBean {
     
     public void carregarTarefasArquivadas() {
     	List<Tarefa> listaTarefas = new ArrayList<Tarefa>();
-		listaTarefas.addAll(getTarefasFinalizadasOrdenadas());
+		listaTarefas.addAll(getTarefasOrdenadas());
 		
 		if (codigoFiltroArquivadas != null && !codigoFiltroArquivadas.isEmpty()) {
 			this.codigoFiltroArquivadas = this.codigoFiltroArquivadas.trim();
@@ -221,6 +229,7 @@ public class TarefasManagedBean {
 			listaTarefas.removeIf(t -> !estaNoIntervalo(t.getDataLimite()));
 		}
 		
+		listaTarefas.removeIf(t -> t.getStatus() != Status.FINALIZADA);
 		listaTarefas.removeIf(t -> !t.isArquivada());
 		
         this.tarefasArquivadas = listaTarefas;
@@ -241,18 +250,11 @@ public class TarefasManagedBean {
                (dataHora.isEqual(this.dataLimiteFimFiltro) || dataHora.isBefore(this.dataLimiteFimFiltro));
     }
 
-	public List<Tarefa> getTarefasEmAndamentoOrdenadas() {
-		List<Tarefa> listaTarefas = daoTarefa.getEntityManager().createNamedQuery("TarefasEmAndamentoOrdenadas.de")
-				.setParameter("responsavel", LoginUtil.getUsuario())
-				.setParameter("statusEmAndamento", Status.EXECUTANDO).getResultList();
-
-		return listaTarefas;
-	}
 	
-	public List<Tarefa> getTarefasFinalizadasOrdenadas() {
-        List<Tarefa> listaTarefas = daoTarefa.getEntityManager().createNamedQuery("TarefasFinalizadasOrdenadas.de")
+	public List<Tarefa> getTarefasOrdenadas() {
+        List<Tarefa> listaTarefas = daoTarefa.getEntityManager().createNamedQuery("TarefasOrdenadas.de")
                 .setParameter("responsavel", LoginUtil.getUsuario())
-                .setParameter("statusFinalizada", Status.FINALIZADA).getResultList();
+                .getResultList();
 
         return listaTarefas;
 	}
