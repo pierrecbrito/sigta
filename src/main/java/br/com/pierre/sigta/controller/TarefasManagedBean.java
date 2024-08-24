@@ -36,7 +36,7 @@ public class TarefasManagedBean {
 	private LocalDateTime dataLimiteInicioFiltro = null;
 	private LocalDateTime dataLimiteFimFiltro = null;
 	private String codigoFiltro = "";
-	//Filtros Arquivada
+	//Filtros de tarefas arquivadas
 	private String tituloFiltroArquivadas = "";
 	private String descricaoFiltroArquivadas  = "";
 	private Prioridade prioridadeFiltroArquivadas  = null;
@@ -131,28 +131,21 @@ public class TarefasManagedBean {
 		return "";
 	}
 	
+	public String concluirTarefa(Tarefa tarefa) {
+		this.tarefaEdit = tarefa;
+		this.tarefaEdit.setStatus(Status.FINALIZADA);
+		daoTarefa.atualizar(this.tarefaEdit);
+		this.tarefaEdit = new Tarefa();
+		carregarTarefas();
+		return "";
+	}
+	
 	public String filtrarArquivadas() {
 		carregarTarefasArquivadas();
 		return "";
 	}
 	
 	public String filtrar() {
-		carregarTarefas();
-		return "";
-	}
-	
-	// Método para retornar as classes CSS para cada linha
-    public String getRowClasses() {
-        return tarefas.stream()
-                .map(tarefa -> tarefa.getClasseCSS())
-                .collect(Collectors.joining(","));
-    }
-	
-	public String concluirTarefa(Tarefa tarefa) {
-		this.tarefaEdit = tarefa;
-		this.tarefaEdit.setStatus(Status.FINALIZADA);
-		daoTarefa.atualizar(this.tarefaEdit);
-		this.tarefaEdit = new Tarefa();
 		carregarTarefas();
 		return "";
 	}
@@ -193,14 +186,6 @@ public class TarefasManagedBean {
         this.tarefas = listaTarefas;
 	}
 	
-	   // Getters e Setters
-    public List<Tarefa> getTarefas() {
-        return tarefas;
-    }
-
-    public void setTarefas(List<Tarefa> tarefas) {
-        this.tarefas = tarefas;
-    }
     
     public void carregarTarefasArquivadas() {
     	List<Tarefa> listaTarefas = new ArrayList<Tarefa>();
@@ -235,15 +220,14 @@ public class TarefasManagedBean {
         this.tarefasArquivadas = listaTarefas;
     	  
     }
+    
+    // Método para retornar as classes CSS para cada linha
+    public String getRowClasses() {
+        return tarefas.stream()
+                .map(tarefa -> tarefa.getClasseCSS())
+                .collect(Collectors.joining(","));
+    }
 	
-	public List<Tarefa> getTarefasArquivadas() {
-        return tarefasArquivadas;
-	}
-	
-	public void setTarefasArquivadas(List<Tarefa> tarefasArquivadas) {
-		this.tarefasArquivadas = tarefasArquivadas;
-	}
-
 	private boolean estaNoIntervalo(LocalDateTime dataHora) {
         // Verifica se dateTimeToCheck está entre start e end (inclusive)
         return (dataHora.isEqual(this.dataLimiteInicioFiltro) || dataHora.isAfter(this.dataLimiteInicioFiltro)) &&
@@ -290,6 +274,24 @@ public class TarefasManagedBean {
 				.setParameter("statusFinalizada", Status.FINALIZADA)
 				.getSingleResult();
 	}
+	
+	// Getters e Setters
+    public List<Tarefa> getTarefas() {
+        return tarefas;
+    }
+
+    public void setTarefas(List<Tarefa> tarefas) {
+        this.tarefas = tarefas;
+    }
+	
+	public List<Tarefa> getTarefasArquivadas() {
+        return tarefasArquivadas;
+	}
+	
+	public void setTarefasArquivadas(List<Tarefa> tarefasArquivadas) {
+		this.tarefasArquivadas = tarefasArquivadas;
+	}
+
 	
 	public Prioridade[] getNiveisPrioridade(){
 		   return Prioridade.values();

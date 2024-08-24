@@ -27,12 +27,12 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @NamedQueries({
-			   @NamedQuery(name = "Tarefas.de", query = "select t from Tarefa t where t.responsavel = :responsavel"),
-			   @NamedQuery(name = "QuantidadeTarefas.de", query = "SELECT COUNT(t) FROM Tarefa t WHERE t.responsavel = :responsavel AND t.arquivada = false"),
-			   @NamedQuery(name = "QuantidadeTarefasFinalizadas.de", query = "SELECT COUNT(t) FROM Tarefa t WHERE t.responsavel = :responsavel AND t.status = :statusFinalizada AND t.arquivada = false"),
-			   @NamedQuery(name = "TarefasOrdenadas.de", query = "SELECT t FROM Tarefa t WHERE t.responsavel = :responsavel  ORDER BY t.status ASC, t.dataLimite ASC,  t.prioridade ASC"),
-			   @NamedQuery(name = "Tarefas.porCodigo", query = "select t from Tarefa t where t.codigo = :codigo"),
-			   })
+    @NamedQuery(name = "Tarefas.de", query = "select t from Tarefa t where t.responsavel = :responsavel"),
+    @NamedQuery(name = "QuantidadeTarefas.de", query = "SELECT COUNT(t) FROM Tarefa t WHERE t.responsavel = :responsavel AND t.arquivada = false"),
+    @NamedQuery(name = "QuantidadeTarefasFinalizadas.de", query = "SELECT COUNT(t) FROM Tarefa t WHERE t.responsavel = :responsavel AND t.status = :statusFinalizada AND t.arquivada = false"),
+    @NamedQuery(name = "TarefasOrdenadas.de", query = "SELECT t FROM Tarefa t WHERE t.responsavel = :responsavel  ORDER BY t.status ASC, t.dataLimite ASC,  t.prioridade ASC"),
+    @NamedQuery(name = "Tarefas.porCodigo", query = "select t from Tarefa t where t.codigo = :codigo")
+})
 public class Tarefa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
