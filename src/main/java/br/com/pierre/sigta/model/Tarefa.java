@@ -30,7 +30,8 @@ import org.hibernate.annotations.CreationTimestamp;
 			   @NamedQuery(name = "Tarefas.de", query = "select t from Tarefa t where t.responsavel = :responsavel"),
 			   @NamedQuery(name = "QuantidadeTarefas.de", query = "SELECT COUNT(t) FROM Tarefa t WHERE t.responsavel = :responsavel AND t.arquivada = false"),
 			   @NamedQuery(name = "QuantidadeTarefasFinalizadas.de", query = "SELECT COUNT(t) FROM Tarefa t WHERE t.responsavel = :responsavel AND t.status = :statusFinalizada AND t.arquivada = false"),
-			   @NamedQuery(name = "TarefasOrdenadas.de", query = "SELECT t FROM Tarefa t WHERE t.responsavel = :responsavel  ORDER BY t.status ASC, t.dataLimite ASC,  t.prioridade ASC")
+			   @NamedQuery(name = "TarefasOrdenadas.de", query = "SELECT t FROM Tarefa t WHERE t.responsavel = :responsavel  ORDER BY t.status ASC, t.dataLimite ASC,  t.prioridade ASC"),
+			   @NamedQuery(name = "Tarefas.porCodigo", query = "select t from Tarefa t where t.codigo = :codigo"),
 			   })
 public class Tarefa {
 	@Id
@@ -58,7 +59,7 @@ public class Tarefa {
     private String codigo;
     @Column(nullable = false)
     private boolean arquivada = false;
-    @OneToMany(mappedBy = "tarefa", targetEntity = Observacao.class, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "tarefa", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Observacao> observacoes = new ArrayList<Observacao>();
  
     private String gerarCodigoUnico() {

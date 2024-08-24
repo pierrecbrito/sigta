@@ -47,4 +47,8 @@ public class DAOGeneric<T> {
 		return em;
 	}
 
+	public static void setEntityManager(EntityManager entityManager) {
+        em = entityManager;
+    }
+
 }

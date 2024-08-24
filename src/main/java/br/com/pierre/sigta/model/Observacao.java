@@ -25,7 +25,7 @@ public class Observacao {
 	@Column(updatable = false)
     private LocalDateTime criadoEm;
     @ManyToOne
-    @JoinColumn(name = "tarefa_id")
+    @JoinColumn(name = "tarefa_id", nullable = false)
     private Tarefa tarefa;
 
     // Getters e Setters
