@@ -23,6 +23,7 @@ Sistema de Gerenciamento de Tarefas que simula uma ToDo List pessoal.
 - JDK 8
 - Servidor Apache Tomcat 7.0
 - PostgreSQL (última versão)
+- Maven como ferramenta de dependências e build
 - Configuração projeto Maven com JSF 2.2 e Hibernate 5.2.6
 
 
