@@ -6,9 +6,9 @@
 		<class>br.com.pierre.sigta.model.Observacao</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:postgresql://localhost:5432/sigta" />
-			<property name="javax.persistence.jdbc.user" value="postgres" />
-			<property name="javax.persistence.jdbc.password" value="root" />
+				value="jdbc:postgresql://36ovh3.stackhero-network.com:7876/sigta" />
+			<property name="javax.persistence.jdbc.user" value="admin" />
+			<property name="javax.persistence.jdbc.password" value="cVR5KXtDSQ3zbrTHGNTLwUptJycPYOgB" />
 			<property name="javax.persistence.jdbc.driver"
 				value="org.postgresql.Driver" />
 			<property name="hibernate.dialect"
