@@ -1,17 +1,22 @@
 # sigta
-## Sistema de Gerenciamento de Tarefas que simula uma ToDo List pessoal.
+Sistema de Gerenciamento de Tarefas que simula uma ToDo List pessoal.
 
 ## A
-### Criar uma aplicação Java Web utilizando JavaServer Faces (JSF)
-- [x] JSF sendo utilizando como framework MVC.
-- [x] ManagedBean como controller
+### Criar uma aplicação Java Web utilizando JavaServer Faces (JSF):
 
 ## B
-### Operalções de CRUD sendo usadas
-- [x] Cadastro de usuário
-- [x] Cadastro de tarefa
-- [x] Cadastro de observações
-- [x] Listagem de tarefas
-- [x] Listagem de observações
-- [x] Atualização de tarefas
-- [x] Deleção de tarefas
+Banco PostgreSQL para persistência.
+
+## C
+Utilização da JPA com a implementação Hibernate.
+
+## D
+Alguns teste de unidades foram feitos com JUnit5 principalmente nos models.
+
+## E
+Está "deployado" em um ambiente cloud Heroku. 
+https://sigta-66aa2573bd69.herokuapp.com
+
+## F
+Possui a implementação de uma autenticação simples com base em sessões. Por isso, foi criada uma tabela
+para usuários. Além disso, uma tarefa pode ser arquivada como forma de não poder mais editá-la por meio do sistema.
