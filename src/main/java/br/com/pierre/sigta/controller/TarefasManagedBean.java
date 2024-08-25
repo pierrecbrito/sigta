@@ -16,6 +16,7 @@ import br.com.pierre.sigta.model.Observacao;
 import br.com.pierre.sigta.model.Prioridade;
 import br.com.pierre.sigta.model.Status;
 import br.com.pierre.sigta.model.Tarefa;
+import br.com.pierre.sigta.model.Usuario;
 import br.com.pierre.sigta.util.LoginUtil;
 
 @ManagedBean(name="tarefasManagedBean")
@@ -24,6 +25,7 @@ public class TarefasManagedBean {
 	private Tarefa tarefa = new Tarefa();
 	private Tarefa tarefaEdit = new Tarefa();
 	private DAOGeneric<Tarefa> daoTarefa = new DAOGeneric<Tarefa>();
+	private DAOGeneric<Usuario> daoUsuario = new DAOGeneric<Usuario>();
 	private List<Tarefa> tarefas;
 	private List<Tarefa> tarefasArquivadas;
 	private String novaObservacao = "";
@@ -52,7 +54,7 @@ public class TarefasManagedBean {
     }
 	
 	public String cadastrar() {
-		tarefa.setResponsavel(LoginUtil.getUsuario());
+		System.out.println("Tarefa: " + this.tarefa);
 		tarefa.adicionarObservacao("A tarefa foi criada.");
 		
 		daoTarefa.salvar(this.tarefa);
@@ -259,6 +261,10 @@ public class TarefasManagedBean {
 	}
 	
 	
+	public String getNomeUsuario() {
+		return LoginUtil.getUsuario().getNome();
+	}
+	
 	public float getPorcentagemTarefasFinalizadas() {
 		Long quantTarefasTotal = getQuantTarefasTotal();
 		
@@ -297,14 +303,17 @@ public class TarefasManagedBean {
 	public void setTarefasArquivadas(List<Tarefa> tarefasArquivadas) {
 		this.tarefasArquivadas = tarefasArquivadas;
 	}
-
+	
+	public List<Usuario> getAllUsuario() {
+		return daoUsuario.listar(Usuario.class);
+	}
 	
 	public Prioridade[] getNiveisPrioridade(){
-		   return Prioridade.values();
+		return Prioridade.values();
 	}
 	
 	public Status[] getTiposStatus(){
-		   return Status.values();
+		return Status.values();
 	}
 
 	public Tarefa getTarefa() {

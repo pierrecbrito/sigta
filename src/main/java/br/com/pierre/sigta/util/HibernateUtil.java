@@ -1,6 +1,7 @@
 package br.com.pierre.sigta.util;
 
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class HibernateUtil {
 	private static EntityManagerFactory factory = null;
@@ -12,7 +13,7 @@ public class HibernateUtil {
 	private static void init() {
 		try {
 			if (factory == null) {
-				factory = javax.persistence.Persistence.createEntityManagerFactory("sigta");
+				factory = Persistence.createEntityManagerFactory("sigta");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
