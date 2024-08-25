@@ -1,8 +1,8 @@
-# sigta
+# SIGTA
 Sistema de Gerenciamento de Tarefas que simula uma ToDo List pessoal.
 
 ### A
-### Criar uma aplicação Java Web utilizando JavaServer Faces (JSF):
+Aplicação Java Web utilizando JavaServer Faces (JSF).
 
 ### B
 Banco PostgreSQL para persistência.
@@ -18,5 +18,20 @@ Está "deployado" em um ambiente cloud Heroku.
 https://sigta-66aa2573bd69.herokuapp.com
 
 ### F
-Possui a implementação de uma autenticação simples com base em sessões. Por isso, foi criada uma tabela
-para usuários. Além disso, uma tarefa pode ser arquivada como forma de não poder mais editá-la por meio do sistema.
+- `Autenticação`: Utilizando sessões e a tabela de Usuario.
+- `Observações`: Toda tarefa tem uma lista de observações relacionadas a ela.
+- `Arquivamento`: Uma tarefa pode ser arquivada, sendo impossibilitada de edições (apenas exclusão).
+- `Progresso`: uma barra de progresso em relação a finalização das tarefas não arquivadas.
+
+
+## Ambiente local utilizado no desenvolvimento
+- IDE Eclipse.
+- JDK 8
+- Servidor Apache Tomcat 7.0
+- PostgreSQL (última versão)
+- Configuração projeto Maven com JSF 2.2 e Hibernate 5.2.6
+
+- `Arquivamento`: Uma tarefa pode ser arquivada, sendo impossibilitada de edições (apenas exclusão).
+- `Progresso`: uma barra de progresso em relação a finalização das tarefas não arquivadas.
+
+
