@@ -31,7 +31,5 @@ https://sigta-66aa2573bd69.herokuapp.com
 - PostgreSQL (última versão)
 - Configuração projeto Maven com JSF 2.2 e Hibernate 5.2.6
 
-- `Arquivamento`: Uma tarefa pode ser arquivada, sendo impossibilitada de edições (apenas exclusão).
-- `Progresso`: uma barra de progresso em relação a finalização das tarefas não arquivadas.
 
 
