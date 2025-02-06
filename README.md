@@ -1,6 +1,8 @@
 # SIGTA
 Task Management System that simulates a personal ToDo List.
 
+![Login Screen](./login-sigta.png)
+
 ### A - Java Web Application using JavaServer Faces (JSF).
 
 ### B - PostgreSQL database for persistence.
@@ -9,7 +11,7 @@ Task Management System that simulates a personal ToDo List.
 
 ### D - Some unit tests were done with JUnit5 mainly on the models.
 
-### E - Deployed in a cloud environment Heroku. (https://sigta-66aa2573bd69.herokuapp.com)
+### E - Deployed in a cloud environment Heroku.
 
 ### F
 - `Authentication`: Using sessions and the User table.
