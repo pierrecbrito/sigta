@@ -1,38 +1,63 @@
 # SIGTA
-Sistema de Gerenciamento de Tarefas que simula uma ToDo List pessoal.
+Task Management System that simulates a personal ToDo List.
 
-### A - Aplicação Java Web utilizando JavaServer Faces (JSF).
+### A - Java Web Application using JavaServer Faces (JSF).
 
-### B - Banco PostgreSQL para persistência.
+### B - PostgreSQL database for persistence.
 
-### C - Utilização da JPA com a implementação Hibernate.
+### C - Using JPA with Hibernate implementation.
 
-### D - Alguns teste de unidades foram feitos com JUnit5 principalmente nos models.
+### D - Some unit tests were done with JUnit5 mainly on the models.
 
-### E - Está "deployado" em um ambiente cloud Heroku. (https://sigta-66aa2573bd69.herokuapp.com)
+### E - Deployed in a cloud environment Heroku. (https://sigta-66aa2573bd69.herokuapp.com)
 
 ### F
-- `Autenticação`: Utilizando sessões e a tabela de Usuario.
-- `Observações`: Toda tarefa tem uma lista de observações relacionadas a ela.
-- `Arquivamento`: Uma tarefa pode ser arquivada, sendo impossibilitada de edições (apenas exclusão).
-- `Progresso`: uma barra de progresso em relação a finalização das tarefas não arquivadas.
+- `Authentication`: Using sessions and the User table.
+- `Notes`: Every task has a list of related notes.
+- `Archiving`: A task can be archived, making it impossible to edit (only deletion is allowed).
+- `Progress`: A progress bar in relation to the completion of non-archived tasks.
 
-
-## Ambiente local utilizado no desenvolvimento
+## Local development environment
 - IDE Eclipse.
 - JDK 8
-- Servidor Apache Tomcat 7.0
-- PostgreSQL (última versão)
-- Maven como ferramenta de dependências e build
-- Configuração projeto Maven com JSF 2.2 e Hibernate 5.2.6
+- Apache Tomcat 7.0 server
+- PostgreSQL (latest version)
+- Maven as dependency and build tool
+- Maven project configuration with JSF 2.2 and Hibernate 5.2.6
 
-## Passos de Instalação local
-1. Baixe o zip e descompacte ou clone pelo github;
-2. Dar um `Maven update`
-2. Certfique-se ter todas essa configurações na properties do projeto estão ok:
-	- `Java Compiler`: está setado para 1.8;
-	- `Build Path`: está incluindo as Maven Dependencies, JUnit5 e Server Runtime;
-	- `Deployment Assembly`: está incluindo as Maven Dependencies e o JUnit5;
-3. Configurar `persistence.xml`  no src\main\resources\META-INF\ para apontar para a propriedades certas do banco, local ou o que está em produção (já vem no projeto);
-4. Adicionar no servidor rodando no eclipse;
-4. Start no servidor.
+## Local installation steps
+1. Download the zip and unzip or clone from GitHub;
+2. Perform a `Maven update`
+2. Ensure all these configurations in the project properties are correct:
+ - `Java Compiler`: set to 1.8;
+ - `Build Path`: includes Maven Dependencies, JUnit5, and Server Runtime;
+ - `Deployment Assembly`: includes Maven Dependencies and JUnit5;
+3. Configure `persistence.xml` in `src\main\resources\META-INF\` to point to the correct database properties, local or production (already included in the project);
+4. Add to the server running in Eclipse;
+4. Start the server.
+
+## Data Dictionary
+
+### Tables
+
+#### User
+- `id` (integer, primary key): User ID
+- `username` (varchar): Username
+- `password` (varchar): User password
+- `email` (varchar): User email
+
+#### Task
+- `id` (integer, primary key): Task ID
+- `title` (varchar): Task title
+- `description` (text): Task description
+- `status` (varchar): Task status (e.g., pending, completed, archived)
+- `user_id` (integer, foreign key): ID of the user who created the task
+
+#### Note
+- `id` (integer, primary key): Note ID
+- `content` (text): Note content
+- `task_id` (integer, foreign key): ID of the related task
+
+### Relationships
+- One `User` can have many `Tasks`.
+- One `Task` can have many `Notes`.
